@@ -12,14 +12,14 @@ export const monthsWithDays: MonthData[] = [
   { id: 11, month: 'November', day: 30 },
   { id: 12, month: 'December', day: 31 },
 ];
-export const weekdays: string[] = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
+export const weekdays: { id: number; day: string }[] = [
+  { id: 0, day: 'Sunday' },
+  { id: 1, day: 'Monday' },
+  { id: 2, day: 'Tuesday' },
+  { id: 3, day: 'Wednesday' },
+  { id: 4, day: 'Thursday' },
+  { id: 5, day: 'Friday' },
+  { id: 6, day: 'Saturday' },
 ];
 
 export type CalendarDate = {

@@ -21,7 +21,7 @@ export class CalendarViewComponent implements OnInit {
   private numberOfColumns = 5;
 
   getWeekdayFromDate(date: number, year: number, month: number) {
-    const lastTwoNumsOfYear = parseInt(year.toString().substring(2));
+    const lastTwoNumsOfYear = parseInt(year.toString().substring(2, 4));
     const firstTwoNumsOfYear = parseInt(year.toString().substring(2));
     const weekdayIndex =
       (date +
