@@ -33,4 +33,5 @@ export type MonthData = {
   id: number;
   month: string;
   day: number;
+  daysArray?: number[][];
 };
