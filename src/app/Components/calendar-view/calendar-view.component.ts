@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { first } from 'rxjs';
 import {
   CalendarDate,
-  MonthData,
   monthsWithDays,
   weekdays,
 } from 'src/app/Constants/Calendar';
@@ -17,8 +15,6 @@ export class CalendarViewComponent implements OnInit {
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
   public year = new Date().getFullYear();
-
-  private numberOfWeekdays = 7;
 
   generateDaysInMonthArray(days: number, month: number): number[][] {
     const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month);
@@ -50,6 +46,4 @@ export class CalendarViewComponent implements OnInit {
   ngOnInit(): void {
     this.generateDaysInMonthArrays();
   }
-
-  dayClickedHandler() {}
 }
