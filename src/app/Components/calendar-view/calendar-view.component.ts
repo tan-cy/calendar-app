@@ -21,7 +21,7 @@ export class CalendarViewComponent implements OnInit {
   private numberOfWeekdays = 7;
 
   generateDaysInMonthArray(days: number, month: number): number[][] {
-    const firstDayOfMonth = this.getWeekdayFromDate(1, month);
+    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month);
     let daysInMonth = new Array(firstDayOfMonth).fill(null);
     for (let i = 1; i <= days; i++) {
       daysInMonth.push(i);
@@ -39,38 +39,10 @@ export class CalendarViewComponent implements OnInit {
     });
   }
 
-  calculateWeekdayFromDate(
-    month: number,
-    date: number,
-    firstTwoNumsOfYear: number,
-    lastTwoNumsOfYear: number
-  ) {
-    if (month == 1 || 2) {
-      lastTwoNumsOfYear -= 1;
-    }
-    month = Math.abs((month - 2) % 12);
-    return Math.abs(
-      Math.round(
-        date +
-          (13 * month - 1) / 5 +
-          lastTwoNumsOfYear +
-          lastTwoNumsOfYear / 4 +
-          firstTwoNumsOfYear / 4 -
-          2 * firstTwoNumsOfYear
-      ) % 7
-    );
-  }
-  getWeekdayFromDate(date: number, month: number) {
-    const lastTwoNumsOfYear = parseInt(this.year.toString().substring(2, 4));
-    const firstTwoNumsOfYear = parseInt(this.year.toString().substring(0, 2));
-    const weekdayIndex = this.calculateWeekdayFromDate(
-      month,
-      date,
-      firstTwoNumsOfYear,
-      lastTwoNumsOfYear
-    );
+  getWeekdayForFirstOfMonth(month: number) {
+    const day = new Date(this.year + '-' + month + '-01').getDay();
 
-    return weekdayIndex;
+    return day;
   }
 
   constructor() {}
