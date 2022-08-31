@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { first } from 'rxjs';
 import {
   CalendarDate,
   MonthData,
@@ -44,17 +45,19 @@ export class CalendarViewComponent implements OnInit {
     firstTwoNumsOfYear: number,
     lastTwoNumsOfYear: number
   ) {
-    return (
-      Math.abs(
-        Math.round(
-          date +
-            (13 * month - 1) / 5 +
-            lastTwoNumsOfYear +
-            lastTwoNumsOfYear / 4 +
-            firstTwoNumsOfYear / 4 -
-            2 * firstTwoNumsOfYear
-        ) % 7
-      ) + 1
+    if (month == 1 || 2) {
+      lastTwoNumsOfYear -= 1;
+    }
+    month = Math.abs((month - 2) % 12);
+    return Math.abs(
+      Math.round(
+        date +
+          (13 * month - 1) / 5 +
+          lastTwoNumsOfYear +
+          lastTwoNumsOfYear / 4 +
+          firstTwoNumsOfYear / 4 -
+          2 * firstTwoNumsOfYear
+      ) % 7
     );
   }
   getWeekdayFromDate(date: number, month: number) {
