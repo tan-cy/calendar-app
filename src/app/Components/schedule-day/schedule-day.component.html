@@ -2,7 +2,13 @@
   <form>
     <div class="field" tabindex="1">
       <label for="title"> <i class="far fa-user"></i>Title </label>
-      <input name="title" type="text" placeholder="Add Title" required />
+      <input
+        [(ngModel)]="eventToSchedule.title"
+        name="title"
+        type="text"
+        placeholder="Add Title"
+        required
+      />
     </div>
     <div class="field" tabindex="2">
       <label for="date"> <i class="far fa-envelope"></i>Date </label>
@@ -20,6 +26,6 @@
         required
       ></textarea>
     </div>
-    <button type="reset">Send Me Message</button>
+    <button type="reset" (click)="check()">Schedule</button>
   </form>
 </div>

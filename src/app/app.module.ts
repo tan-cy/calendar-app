@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { CalendarViewComponent } from './Components/calendar-view/calendar-view.component';
@@ -8,7 +9,7 @@ import { ScheduleDayComponent } from './Components/schedule-day/schedule-day.com
 
 @NgModule({
   declarations: [AppComponent, CalendarViewComponent, ScheduleDayComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
