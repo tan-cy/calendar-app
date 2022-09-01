@@ -3,6 +3,7 @@ export type EventToSchedule = {
   title: string;
   date: Date;
   time: Date;
+  location: string;
   description: string;
 };
 
@@ -11,5 +12,6 @@ export const defaultEventToSchedule = {
   title: '',
   date: new Date(),
   time: new Date(),
+  location: '',
   description: '',
 };

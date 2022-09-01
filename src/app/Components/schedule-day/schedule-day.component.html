@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="eventToSchedule">
   <form>
     <div class="field" tabindex="1">
       <label for="title"> <i class="far fa-user"></i>Title </label>
@@ -12,20 +12,40 @@
     </div>
     <div class="field" tabindex="2">
       <label for="date"> <i class="far fa-envelope"></i>Date </label>
-      <input name="date" type="date" required />
+      <input
+        name="date"
+        type="date"
+        [(ngModel)]="eventToSchedule.date"
+        required
+      />
     </div>
     <div class="field" tabindex="3">
       <label for="time"> <i class="far fa-envelope"></i>Time </label>
-      <input name="time" type="time" required />
+      <input
+        name="time"
+        type="time"
+        [(ngModel)]="eventToSchedule.time"
+        required
+      />
     </div>
     <div class="field" tabindex="4">
+      <label for="location"> <i class="far fa-envelope"></i>Location </label>
+      <input
+        name="location"
+        type="location"
+        [(ngModel)]="eventToSchedule.location"
+        required
+      />
+    </div>
+    <div class="field" tabindex="5">
       <label for="desciption"> <i class="far fa-edit"></i>Description </label>
       <textarea
-        name="desciption"
+        name="description"
         placeholder="Type details for this new meeting"
+        [(ngModel)]="eventToSchedule.description"
         required
       ></textarea>
     </div>
-    <button type="reset" (click)="check()">Schedule</button>
+    <button type="reset" (click)="onScheduleHandler()">Schedule</button>
   </form>
 </div>
