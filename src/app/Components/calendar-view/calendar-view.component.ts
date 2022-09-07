@@ -15,6 +15,7 @@ export class CalendarViewComponent implements OnInit {
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
   public year = new Date().getFullYear();
+  public month = this.getCurrentMonth();
 
   generateDaysInMonthArray(days: number, month: number): number[][] {
     const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month);
@@ -44,8 +45,20 @@ export class CalendarViewComponent implements OnInit {
     const d = new Date();
     return monthsWithDays[d.getMonth()];
   }
-  getPreviousMonth() {}
-  getNextMonth() {}
+  getPreviousMonth() {
+    const currentMonthIndex = this.month.id - 1;
+    this.month = monthsWithDays[currentMonthIndex - 1];
+  }
+  getNextMonth() {
+    const currentMonthIndex = this.month.id - 1;
+    this.month = monthsWithDays[currentMonthIndex + 1];
+  }
+  backArrowClicked() {
+    this.getPreviousMonth();
+  }
+  nextArrowClicked() {
+    this.getNextMonth();
+  }
 
   constructor() {}
 

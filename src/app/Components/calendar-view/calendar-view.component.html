@@ -8,10 +8,14 @@
   <div class="calendar-wrapper">
     <!-- <div>{{ monthWithDay.month }} has {{ monthWithDay.day }} days</div> -->
     <header>
-      <h1>{{ this.getCurrentMonth().month }} {{ year }}</h1>
+      <h1>{{ this.month.month }} {{ year }}</h1>
       <div class="arrows">
-        <mat-icon>arrow_back_ios</mat-icon>
-        <mat-icon>arrow_forward_ios</mat-icon>
+        <button (click)="backArrowClicked()">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+        <button (click)="nextArrowClicked()">
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
       </div>
     </header>
     <button mat-button></button>
@@ -22,10 +26,7 @@
       </li>
     </ul>
     <ol class="day-grid">
-      <li
-        *ngFor="let day of this.getCurrentMonth().daysArray"
-        routerLink="../schedule-day"
-      >
+      <li *ngFor="let day of this.month.daysArray" routerLink="../schedule-day">
         {{ day }}
       </li>
     </ol>
