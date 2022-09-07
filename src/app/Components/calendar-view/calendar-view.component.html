@@ -1,8 +1,10 @@
 <div>
-  <div *ngFor="let monthWithDay of monthsWithDays" class="calendar-wrapper">
+  <!-- <button (click)="buttonClick()">Click for Month</button> -->
+  <!-- *ngFor="let monthWithDay of monthsWithDays" -->
+  <div class="calendar-wrapper">
     <!-- <div>{{ monthWithDay.month }} has {{ monthWithDay.day }} days</div> -->
     <header>
-      <h1>{{ monthWithDay.month }} {{ year }}</h1>
+      <h1>{{ this.getCurrentMonth().month }} {{ year }}</h1>
     </header>
     <ul class="weekdays">
       <li *ngFor="let weekDay of weekdays" class="day-name">
@@ -11,7 +13,7 @@
     </ul>
     <ol class="day-grid">
       <li
-        *ngFor="let day of monthWithDay.daysArray"
+        *ngFor="let day of this.getCurrentMonth().daysArray"
         routerLink="../schedule-day"
       >
         {{ day }}

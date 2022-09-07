@@ -37,9 +37,18 @@ export class CalendarViewComponent implements OnInit {
 
   getWeekdayForFirstOfMonth(month: number) {
     const day = new Date(this.year + '-' + month + '-01').getDay();
-
     return day;
   }
+
+  getCurrentMonth() {
+    const d = new Date();
+    return monthsWithDays[d.getMonth()];
+  }
+  getPreviousMonth() {}
+  getNextMonth() {}
+  // buttonClick() {
+  //   console.log(this.getCurrentMonth());
+  // }
 
   constructor() {}
 
