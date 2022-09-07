@@ -46,9 +46,6 @@ export class CalendarViewComponent implements OnInit {
   }
   getPreviousMonth() {}
   getNextMonth() {}
-  // buttonClick() {
-  //   console.log(this.getCurrentMonth());
-  // }
 
   constructor() {}
 
