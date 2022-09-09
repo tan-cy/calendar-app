@@ -26,6 +26,10 @@ export class CalendarViewComponent implements OnInit {
 
     return daysInMonth;
   }
+  getCurrentMonth() {
+    const d = new Date();
+    return monthsWithDays[d.getMonth()];
+  }
 
   generateDaysInMonthArrays() {
     monthsWithDays.forEach((monthData) => {
@@ -37,14 +41,17 @@ export class CalendarViewComponent implements OnInit {
   }
 
   getWeekdayForFirstOfMonth(month: number) {
-    const day = new Date(this.year + '-' + month + '-01').getDay();
+    let day;
+
+    if (month <= this.month.id) {
+      day = new Date(this.year + '-' + month + '-01').getDay();
+    } else {
+      day = new Date(this.year + '-' + month + '-01').getDay() + 1;
+    }
+
     return day;
   }
 
-  getCurrentMonth() {
-    const d = new Date();
-    return monthsWithDays[d.getMonth()];
-  }
   getPreviousMonth() {
     const currentMonthIndex = this.month.id - 1;
     this.month = monthsWithDays[currentMonthIndex - 1];
