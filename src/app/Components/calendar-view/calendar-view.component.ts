@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+
 import {
   CalendarDate,
   monthsWithDays,
@@ -52,19 +53,19 @@ export class CalendarViewComponent implements OnInit {
     return day;
   }
 
-  getPreviousMonth() {
+  setPreviousMonth() {
     const currentMonthIndex = this.month.id - 1;
     this.month = monthsWithDays[currentMonthIndex - 1];
   }
-  getNextMonth() {
+  setNextMonth() {
     const currentMonthIndex = this.month.id - 1;
     this.month = monthsWithDays[currentMonthIndex + 1];
   }
   backArrowClicked() {
-    this.getPreviousMonth();
+    this.setPreviousMonth();
   }
   nextArrowClicked() {
-    this.getNextMonth();
+    this.setNextMonth();
   }
 
   constructor() {}
