@@ -42,13 +42,7 @@ export class CalendarViewComponent implements OnInit {
   }
 
   getWeekdayForFirstOfMonth(month: number) {
-    let day;
-
-    if (month <= this.month.id) {
-      day = new Date(this.year + '-' + month + '-01').getDay();
-    } else {
-      day = new Date(this.year + '-' + month + '-01').getDay() + 1;
-    }
+    const day = new Date(this.year + '-' + month + '-01').getUTCDay();
 
     return day;
   }
