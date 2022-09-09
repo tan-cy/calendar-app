@@ -1,0 +1,23 @@
+<form>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" name="name" [(ngModel)]="user.name" />
+  </div>
+
+  <div>
+    <label for="user">User:</label>
+    <input type="text" name="user" [(ngModel)]="user.username" />
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="text" name="email" [(ngModel)]="user.email" />
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" name="password" [(ngModel)]="user.password" />
+  </div>
+
+  <button type="button" (click)="signUp()" [disabled]="loading">Sign Up</button>
+</form>
