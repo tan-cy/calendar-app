@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import {
   CalendarDate,
+  MAX_MONTH_IDX,
+  MIN_MONTH_IDX,
+  MonthData,
   monthsWithDays,
   weekdays,
 } from 'src/app/Constants/Calendar';
@@ -16,74 +19,79 @@ export class CalendarViewComponent implements OnInit {
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
   public year = this.getCurrentYear();
-  public month = this.getCurrentMonth();
+  public monthData = this.getCurrentMonth();
 
-  generateDaysInMonthArray(days: number, month: number): number[][] {
-    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month, this.year);
+  generateDaysInMonthArray(): void {
+    const days = this.monthData.day;
+    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(this.monthData.id);
     let daysInMonth = new Array(firstDayOfMonth).fill(null);
     for (let i = 1; i <= days; i++) {
       daysInMonth.push(i);
     }
 
-    return daysInMonth;
+    this.monthData.daysArray = daysInMonth;
   }
-  getCurrentMonth() {
+  getCurrentMonth(): MonthData {
     const d = new Date();
     return monthsWithDays[d.getMonth()];
   }
-  getCurrentYear() {
+  getCurrentYear(): number {
     const y = new Date();
     return y.getFullYear();
   }
 
-  generateDaysInMonthArrays() {
-    monthsWithDays.forEach((monthData) => {
-      monthData.daysArray = this.generateDaysInMonthArray(
-        monthData.day,
-        monthData.id
-      );
-    });
-  }
-
-  getWeekdayForFirstOfMonth(month: number, year: number) {
-    const day = new Date(year + '-' + month + '-01').getUTCDay();
-    console.log(year);
+  getWeekdayForFirstOfMonth(month: number): number {
+    const day = new Date(this.year + '-' + month + '-01').getUTCDay();
+    console.log(this.year);
     return day;
   }
 
-  setPreviousMonth() {
-    let currentMonthIndex = this.month.id - 1;
-    console.log(currentMonthIndex);
-    if (currentMonthIndex === 0) {
-      currentMonthIndex = 11;
-      this.month = monthsWithDays[currentMonthIndex];
+  setPreviousYear(): void {
+    if (this.monthData.id === 1) {
       this.year--;
-    } else {
-      this.month = monthsWithDays[currentMonthIndex - 1];
     }
   }
-  setNextMonth() {
-    let currentMonthIndex = this.month.id - 1;
-    console.log(currentMonthIndex);
 
-    if (currentMonthIndex === 11) {
-      currentMonthIndex = 0;
-      this.month = monthsWithDays[currentMonthIndex];
+  setNextYear(): void {
+    if (this.monthData.id === 12) {
       this.year++;
-    } else {
-      this.month = monthsWithDays[currentMonthIndex + 1];
     }
   }
-  backArrowClicked() {
-    this.setPreviousMonth();
+
+  setPreviousMonth(): void {
+    const currentMonthIndex = this.monthData.id - 1;
+    let prevMonthIndex;
+    if (currentMonthIndex === MIN_MONTH_IDX) {
+      prevMonthIndex = MAX_MONTH_IDX;
+    } else {
+      prevMonthIndex = currentMonthIndex - 1;
+    }
+    this.monthData = monthsWithDays[prevMonthIndex];
   }
-  nextArrowClicked() {
+  setNextMonth(): void {
+    const currentMonthIndex = this.monthData.id - 1;
+    let nextMonthIndex;
+    if (currentMonthIndex === MAX_MONTH_IDX) {
+      nextMonthIndex = MIN_MONTH_IDX;
+    } else {
+      nextMonthIndex = currentMonthIndex + 1;
+    }
+    this.monthData = monthsWithDays[nextMonthIndex];
+  }
+  backArrowClicked(): void {
+    this.setPreviousYear();
+    this.setPreviousMonth();
+    this.generateDaysInMonthArray();
+  }
+  nextArrowClicked(): void {
+    this.setNextYear();
     this.setNextMonth();
+    this.generateDaysInMonthArray();
   }
 
   constructor() {}
 
   ngOnInit(): void {
-    this.generateDaysInMonthArrays();
+    this.generateDaysInMonthArray();
   }
 }
