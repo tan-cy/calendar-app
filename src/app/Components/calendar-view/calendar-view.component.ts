@@ -47,13 +47,13 @@ export class CalendarViewComponent implements OnInit {
   }
 
   setPreviousYear(): void {
-    if (this.monthData.id === 1) {
+    if (this.monthData.id === MIN_MONTH_IDX + 1) {
       this.year--;
     }
   }
 
   setNextYear(): void {
-    if (this.monthData.id === 12) {
+    if (this.monthData.id === MAX_MONTH_IDX + 1) {
       this.year++;
     }
   }
