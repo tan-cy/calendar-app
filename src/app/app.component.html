@@ -1,10 +1,1 @@
-<nav>
-  <a routerLink="/sign-in" routerLinkActive="active" *ngIf="!isAuthenticated()"
-    >Sign In</a
-  >
-  <a routerLink="/sign-up" routerLinkActive="active" *ngIf="!isAuthenticated()"
-    >Sign Up</a
-  >
-  <a routerLink="" (click)="signOut()" *ngIf="isAuthenticated()">Sign Out</a>
-</nav>
 <router-outlet></router-outlet>

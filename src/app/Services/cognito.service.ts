@@ -57,11 +57,15 @@ export class CognitoService {
     });
   }
 
-  public isAuthenticated(): boolean {
-    return this.authenticationSubject.value;
+  public async isAuthenticated(): Promise<boolean> {
+    return (await Auth.currentUserInfo()) ? true : false;
   }
 
   public getUser(): Promise<any> {
+    console.log('getting current user in service');
+    console.log(this.authenticationSubject.value);
+
+    console.log(Auth.currentUserInfo());
     return Auth.currentUserInfo();
   }
 

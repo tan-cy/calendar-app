@@ -23,10 +23,10 @@ export class SignInComponent implements OnInit {
     this.cognitoService
       .signIn(this.user)
       .then(() => {
-        console.log('signed in...');
         this.router.navigate(['/calendar-view']);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         this.loading = false;
       });
   }

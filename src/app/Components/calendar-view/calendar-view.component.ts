@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   CalendarDate,
   monthsWithDays,
   weekdays,
 } from 'src/app/Constants/Calendar';
+import { CognitoService } from 'src/app/Services/cognito.service';
 
 @Component({
   selector: 'app-calendar-view',
@@ -41,9 +43,20 @@ export class CalendarViewComponent implements OnInit {
     return day;
   }
 
-  constructor() {}
+  public signOut(): void {
+    this.cognitoService.signOut().then(() => {
+      this.router.navigate(['/sign-in']);
+    });
+  }
+  constructor(private router: Router, private cognitoService: CognitoService) {}
 
   ngOnInit(): void {
-    this.generateDaysInMonthArrays();
+    this.cognitoService.getUser().then((user) => {
+      if (user) {
+        this.generateDaysInMonthArrays();
+      } else {
+        this.router.navigate(['/sign-in']);
+      }
+    });
   }
 }

@@ -25,7 +25,8 @@ export class SignUpComponent {
         this.loading = false;
         this.router.navigate(['/calendar-view']);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         this.loading = false;
       });
   }

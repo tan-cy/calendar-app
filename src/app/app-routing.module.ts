@@ -6,12 +6,12 @@ import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: '', redirectTo: 'calendar-view', pathMatch: 'full' },
   { path: 'calendar-view', component: CalendarViewComponent },
   { path: 'schedule-day', component: ScheduleDayComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: '**', redirectTo: 'sign-in' },
+  { path: '**', redirectTo: 'calendar-view' },
 ];
 
 @NgModule({
