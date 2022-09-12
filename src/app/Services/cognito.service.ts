@@ -42,7 +42,7 @@ export class CognitoService {
   }
 
   public confirmSignUp(user: IUser): Promise<any> {
-    return Auth.confirmSignUp(user.email, user.code);
+    return Auth.confirmSignUp(user.username, user.code);
   }
 
   public signIn(user: IUser): Promise<any> {
@@ -62,10 +62,6 @@ export class CognitoService {
   }
 
   public getUser(): Promise<any> {
-    console.log('getting current user in service');
-    console.log(this.authenticationSubject.value);
-
-    console.log(Auth.currentUserInfo());
     return Auth.currentUserInfo();
   }
 

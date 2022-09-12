@@ -8,9 +8,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { ScheduleDayComponent } from './Components/schedule-day/schedule-day.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
+import { ConfirmUserComponent } from './Components/confirm-user/confirm-user.component';
+import { ErrorComponent } from './Components/error/error.component';
 
 @NgModule({
-  declarations: [AppComponent, CalendarViewComponent, ScheduleDayComponent, SignUpComponent, SignInComponent],
+  declarations: [
+    AppComponent,
+    CalendarViewComponent,
+    ScheduleDayComponent,
+    SignUpComponent,
+    SignInComponent,
+    ConfirmUserComponent,
+    ErrorComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],

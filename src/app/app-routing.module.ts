@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarViewComponent } from './Components/calendar-view/calendar-view.component';
+import { ConfirmUserComponent } from './Components/confirm-user/confirm-user.component';
 import { ScheduleDayComponent } from './Components/schedule-day/schedule-day.component';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'schedule-day', component: ScheduleDayComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'sign-up', component: SignUpComponent },
-  { path: '**', redirectTo: 'calendar-view' },
+  { path: 'confirm-user', component: ConfirmUserComponent },
+  { path: '**', redirectTo: 'error' },
 ];
 
 @NgModule({

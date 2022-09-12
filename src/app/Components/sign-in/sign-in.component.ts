@@ -26,7 +26,8 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['/calendar-view']);
       })
       .catch((e) => {
-        console.log(e);
+        console.error('Error in sign in..');
+        console.error(e);
         this.loading = false;
       });
   }

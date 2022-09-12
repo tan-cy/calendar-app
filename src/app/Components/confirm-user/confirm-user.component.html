@@ -1,0 +1,13 @@
+<form>
+  <p>
+    Please confirm your account. The confirmation code has been sent to your
+    email.
+  </p>
+  <div>
+    <label for="confirmation-code">Confirmation Code:</label>
+    <input type="text" name="confirmation-code" [(ngModel)]="user.code" />
+  </div>
+  <button type="button" (click)="confirmUser()" [disabled]="loading">
+    Confirm
+  </button>
+</form>

@@ -23,10 +23,13 @@ export class SignUpComponent {
       .signUp(this.user)
       .then(() => {
         this.loading = false;
-        this.router.navigate(['/calendar-view']);
+        this.router.navigate(['/confirm-user'], {
+          queryParams: { user: JSON.stringify(this.user) },
+        });
       })
       .catch((e) => {
-        console.log(e);
+        console.error('Error in sign up..');
+        console.error(e);
         this.loading = false;
       });
   }
