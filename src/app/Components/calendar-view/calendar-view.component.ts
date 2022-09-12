@@ -15,11 +15,11 @@ export class CalendarViewComponent implements OnInit {
   @Input() dateSelected?: CalendarDate;
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
-  public year = new Date().getFullYear();
+  public year = this.getCurrentYear();
   public month = this.getCurrentMonth();
 
   generateDaysInMonthArray(days: number, month: number): number[][] {
-    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month);
+    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month, this.year);
     let daysInMonth = new Array(firstDayOfMonth).fill(null);
     for (let i = 1; i <= days; i++) {
       daysInMonth.push(i);
@@ -31,6 +31,10 @@ export class CalendarViewComponent implements OnInit {
     const d = new Date();
     return monthsWithDays[d.getMonth()];
   }
+  getCurrentYear() {
+    const y = new Date();
+    return y.getFullYear();
+  }
 
   generateDaysInMonthArrays() {
     monthsWithDays.forEach((monthData) => {
@@ -41,19 +45,34 @@ export class CalendarViewComponent implements OnInit {
     });
   }
 
-  getWeekdayForFirstOfMonth(month: number) {
-    const day = new Date(this.year + '-' + month + '-01').getUTCDay();
-
+  getWeekdayForFirstOfMonth(month: number, year: number) {
+    const day = new Date(year + '-' + month + '-01').getUTCDay();
+    console.log(year);
     return day;
   }
 
   setPreviousMonth() {
-    const currentMonthIndex = this.month.id - 1;
-    this.month = monthsWithDays[currentMonthIndex - 1];
+    let currentMonthIndex = this.month.id - 1;
+    console.log(currentMonthIndex);
+    if (currentMonthIndex === 0) {
+      currentMonthIndex = 11;
+      this.month = monthsWithDays[currentMonthIndex];
+      this.year--;
+    } else {
+      this.month = monthsWithDays[currentMonthIndex - 1];
+    }
   }
   setNextMonth() {
-    const currentMonthIndex = this.month.id - 1;
-    this.month = monthsWithDays[currentMonthIndex + 1];
+    let currentMonthIndex = this.month.id - 1;
+    console.log(currentMonthIndex);
+
+    if (currentMonthIndex === 11) {
+      currentMonthIndex = 0;
+      this.month = monthsWithDays[currentMonthIndex];
+      this.year++;
+    } else {
+      this.month = monthsWithDays[currentMonthIndex + 1];
+    }
   }
   backArrowClicked() {
     this.setPreviousMonth();
