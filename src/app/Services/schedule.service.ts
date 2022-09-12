@@ -7,6 +7,6 @@ export class ScheduleService {
   constructor() {}
 
   submitEvent() {
-    console.log('works');
+    console.log('submitting event...');
   }
 }
