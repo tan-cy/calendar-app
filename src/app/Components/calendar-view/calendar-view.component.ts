@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import {
   CalendarDate,
   MAX_MONTH_IDX,
@@ -92,5 +92,12 @@ export class CalendarViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateDaysInMonthArray();
+    this.cognitoService.getUser().then((user) => {
+      if (user) {
+        this.generateDaysInMonthArrays();
+      } else {
+        this.router.navigate(['/sign-in']);
+      }
+    });
   }
 }
