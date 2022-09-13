@@ -35,3 +35,6 @@ export type MonthData = {
   day: number;
   daysArray?: number[][];
 };
+
+export const MAX_MONTH_IDX = 11;
+export const MIN_MONTH_IDX = 0;

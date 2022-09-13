@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CalendarDate,
+  MAX_MONTH_IDX,
+  MIN_MONTH_IDX,
+  MonthData,
   monthsWithDays,
   weekdays,
 } from 'src/app/Constants/Calendar';
@@ -16,31 +19,74 @@ export class CalendarViewComponent implements OnInit {
   @Input() dateSelected?: CalendarDate;
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
-  public year = new Date().getFullYear();
+  public year = this.getCurrentYear();
+  public monthData = this.getCurrentMonth();
 
-  generateDaysInMonthArray(days: number, month: number): number[][] {
-    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(month);
+  generateDaysInMonthArray(): void {
+    const days = this.monthData.day;
+    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(this.monthData.id);
     let daysInMonth = new Array(firstDayOfMonth).fill(null);
     for (let i = 1; i <= days; i++) {
       daysInMonth.push(i);
     }
 
-    return daysInMonth;
+    this.monthData.daysArray = daysInMonth;
+  }
+  getCurrentMonth(): MonthData {
+    const d = new Date();
+    return monthsWithDays[d.getMonth()];
+  }
+  getCurrentYear(): number {
+    const y = new Date();
+    return y.getFullYear();
   }
 
-  generateDaysInMonthArrays() {
-    monthsWithDays.forEach((monthData) => {
-      monthData.daysArray = this.generateDaysInMonthArray(
-        monthData.day,
-        monthData.id
-      );
-    });
-  }
-
-  getWeekdayForFirstOfMonth(month: number) {
-    const day = new Date(this.year + '-' + month + '-01').getDay();
-
+  getWeekdayForFirstOfMonth(month: number): number {
+    const day = new Date(this.year + '-' + month + '-01').getUTCDay();
     return day;
+  }
+
+  setPreviousYear(): void {
+    if (this.monthData.id === MIN_MONTH_IDX + 1) {
+      this.year--;
+    }
+  }
+
+  setNextYear(): void {
+    if (this.monthData.id === MAX_MONTH_IDX + 1) {
+      this.year++;
+    }
+  }
+
+  setPreviousMonth(): void {
+    const currentMonthIndex = this.monthData.id - 1;
+    let prevMonthIndex;
+    if (currentMonthIndex === MIN_MONTH_IDX) {
+      prevMonthIndex = MAX_MONTH_IDX;
+    } else {
+      prevMonthIndex = currentMonthIndex - 1;
+    }
+    this.monthData = monthsWithDays[prevMonthIndex];
+  }
+  setNextMonth(): void {
+    const currentMonthIndex = this.monthData.id - 1;
+    let nextMonthIndex;
+    if (currentMonthIndex === MAX_MONTH_IDX) {
+      nextMonthIndex = MIN_MONTH_IDX;
+    } else {
+      nextMonthIndex = currentMonthIndex + 1;
+    }
+    this.monthData = monthsWithDays[nextMonthIndex];
+  }
+  backArrowClicked(): void {
+    this.setPreviousYear();
+    this.setPreviousMonth();
+    this.generateDaysInMonthArray();
+  }
+  nextArrowClicked(): void {
+    this.setNextYear();
+    this.setNextMonth();
+    this.generateDaysInMonthArray();
   }
 
   public signOut(): void {
@@ -51,9 +97,11 @@ export class CalendarViewComponent implements OnInit {
   constructor(private router: Router, private cognitoService: CognitoService) {}
 
   ngOnInit(): void {
+    this.generateDaysInMonthArray();
+
     this.cognitoService.getUser().then((user) => {
       if (user) {
-        this.generateDaysInMonthArrays();
+        this.generateDaysInMonthArray();
       } else {
         this.router.navigate(['/sign-in']);
       }

@@ -2,11 +2,24 @@
   <a routerLink="" (click)="signOut()">Sign Out</a>
 </nav>
 <div>
-  <div *ngFor="let monthWithDay of monthsWithDays" class="calendar-wrapper">
-    <!-- <div>{{ monthWithDay.month }} has {{ monthWithDay.day }} days</div> -->
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+
+  <div class="calendar-wrapper">
     <header>
-      <h1>{{ monthWithDay.month }} {{ year }}</h1>
+      <h1>{{ this.monthData.month }} {{ year }}</h1>
+      <div class="arrows">
+        <button (click)="backArrowClicked()">
+          <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+        <button (click)="nextArrowClicked()">
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+      </div>
     </header>
+
     <ul class="weekdays">
       <li *ngFor="let weekDay of weekdays" class="day-name">
         <abbr title="{{ weekDay.day.charAt(0) }}">{{ weekDay.day }}</abbr>
@@ -14,7 +27,7 @@
     </ul>
     <ol class="day-grid">
       <li
-        *ngFor="let day of monthWithDay.daysArray"
+        *ngFor="let day of this.monthData.daysArray"
         routerLink="../schedule-day"
       >
         {{ day }}
