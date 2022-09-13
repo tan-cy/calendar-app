@@ -97,12 +97,11 @@ export class CalendarViewComponent implements OnInit {
   constructor(private router: Router, private cognitoService: CognitoService) {}
 
   ngOnInit(): void {
-
     this.generateDaysInMonthArray();
 
     this.cognitoService.getUser().then((user) => {
       if (user) {
-        this.generateDaysInMonthArrays();
+        this.generateDaysInMonthArray();
       } else {
         this.router.navigate(['/sign-in']);
       }
