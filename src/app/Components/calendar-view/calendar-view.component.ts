@@ -8,6 +8,7 @@ import {
   monthsWithDays,
   weekdays,
 } from 'src/app/Constants/Calendar';
+import { CognitoService } from 'src/app/Services/cognito.service';
 
 @Component({
   selector: 'app-calendar-view',
@@ -88,10 +89,17 @@ export class CalendarViewComponent implements OnInit {
     this.generateDaysInMonthArray();
   }
 
-  constructor() {}
+  public signOut(): void {
+    this.cognitoService.signOut().then(() => {
+      this.router.navigate(['/sign-in']);
+    });
+  }
+  constructor(private router: Router, private cognitoService: CognitoService) {}
 
   ngOnInit(): void {
+
     this.generateDaysInMonthArray();
+
     this.cognitoService.getUser().then((user) => {
       if (user) {
         this.generateDaysInMonthArrays();
