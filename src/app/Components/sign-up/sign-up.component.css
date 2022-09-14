@@ -1,5 +1,6 @@
 * {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #0d1716;
 
 }
 
@@ -46,23 +47,28 @@ nav {
   display: flex;
   justify-content: center;
   padding-top: 0.5em;
-
+  align-items: center;
 }
 
 button {
   border-radius: 0.7em;
   padding: 0.5em;
   background-color: #b8e3df;
-  color: #0d1716;
   font-size: 1.2em;
   border: 1px solid #b8e3df;
   cursor: pointer;
 }
 
+p {
+  margin-right: 0.2em;
+}
+
 a {
-  background-color: #b8e3df;
-  padding: 0.5em;
-  border-radius: 0.7em;
   text-decoration: none;
-  color: #0d1716;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #37B8A0;
 }
