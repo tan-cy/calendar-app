@@ -1,7 +1,6 @@
 * {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #0d1716;
-
 }
 
 #signUpBox {
@@ -11,7 +10,6 @@
   align-items: center;
   justify-content: center;
   background-color: #b8e3df;
-
 }
 
 h1 {
@@ -23,8 +21,6 @@ h1 {
 #signUpSheet {
   padding: 4.5em;
   background-color: white;
-  /* padding-left: 5em;
-  padding-right: 5em; */
 }
 
 #inputFields {
@@ -37,7 +33,6 @@ input {
   margin-bottom: 0.5em;
   border-radius: 0.7em;
   border-color: #c4c4c4;
-
 }
 
 nav {
