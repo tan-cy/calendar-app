@@ -11,6 +11,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
+  public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
     this.loading = false;
@@ -29,8 +30,16 @@ export class SignUpComponent {
       })
       .catch((e) => {
         console.error('Error in sign up..');
-        console.error(e);
+        console.log(e);
         this.loading = false;
+
+        console.log(JSON.parse(JSON.stringify(e)));
+        const error = JSON.parse(JSON.stringify(e));
+        if (error.name === 'AuthError') {
+          this.errorMessage = error.log;
+        } else if (error.name === 'InvalidParameterException') {
+          this.errorMessage = 'Come back to me later';
+        }
       });
   }
 }
