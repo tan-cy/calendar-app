@@ -1,5 +1,5 @@
 <div id="signInBox">
-  <form>
+  <form ngNativeValidate>
     <h1>Sign In</h1>
     <div id="inputFields">
       <input
@@ -7,17 +7,19 @@
         name="user"
         placeholder="UserName"
         [(ngModel)]="user.username"
+        [required]="true"
       />
       <input
         type="password"
         name="password"
         placeholder="Password"
         [(ngModel)]="user.password"
+        [required]="true"
       />
     </div>
 
     <div id="buttonContainer">
-      <button type="button" (click)="signIn()" [disabled]="loading">
+      <button type="submit" (click)="signIn()" [disabled]="loading">
         Login
       </button>
     </div>

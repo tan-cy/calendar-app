@@ -1,5 +1,5 @@
 <div id="signUpBox">
-  <form>
+  <form ngNoForm>
     <div>
       <div id="signUpSheet">
         <h1>Sign Up</h1>
@@ -9,18 +9,21 @@
             name="email"
             placeholder="E-mail"
             [(ngModel)]="user.email"
+            required="required"
           />
           <input
             type="text"
             name="name"
             placeholder="Name"
             [(ngModel)]="user.name"
+            required
           />
           <input
             type="text"
             placeholder="UserName"
             name="user"
             [(ngModel)]="user.username"
+            required
           />
 
           <input
@@ -28,9 +31,10 @@
             name="password"
             placeholder="Password"
             [(ngModel)]="user.password"
+            required
           />
 
-          <button type="button" (click)="signUp()" [disabled]="loading">
+          <button type="submit" (click)="signUp()" [disabled]="loading">
             Submit
           </button>
         </div>
