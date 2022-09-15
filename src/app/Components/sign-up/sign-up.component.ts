@@ -32,7 +32,7 @@ export class SignUpComponent {
         console.error('Error in sign up..');
         console.log(e);
         this.loading = false;
-
+        console.log(e);
         console.log(JSON.parse(JSON.stringify(e)));
         const error = JSON.parse(JSON.stringify(e));
         if (error.name === 'AuthError') {

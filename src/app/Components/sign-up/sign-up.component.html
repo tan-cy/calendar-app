@@ -22,6 +22,7 @@
     <input
       type="password"
       name="password"
+      pattern="^[\S]+.*[\S]+$"
       [(ngModel)]="user.password"
       required
     />
@@ -30,7 +31,5 @@
     <p>{{ errorMessage }}</p>
   </div>
 
-  <button type="button" (click)="signUp()" [disabled]="loading" type="submit">
-    Sign Up
-  </button>
+  <button type="submit" (click)="signUp()" [disabled]="loading">Sign Up</button>
 </form>
