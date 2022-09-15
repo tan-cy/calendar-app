@@ -40,11 +40,25 @@ export class ConfirmUserComponent implements OnInit {
       });
   }
 
+  // private giveUserPermissions(): void {
+  //   this.cognitoService
+  //     .addUserToGroup(this.user)
+  //     .then(() => {
+  //       this.signIn();
+  //     })
+  //     .catch((e) => {
+  //       console.error('Error in giving user permissions..');
+  //       console.error(e);
+  //       this.loading = false;
+  //     });
+  // }
+
   public confirmUser(): void {
     this.loading = true;
     this.cognitoService
       .confirmSignUp(this.user)
       .then(() => {
+        // this.giveUserPermissions();
         this.signIn();
       })
       .catch((e) => {
