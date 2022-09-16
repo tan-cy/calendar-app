@@ -12,10 +12,14 @@ export class SignUpComponent {
   loading: boolean;
   user: IUser;
 <<<<<<< HEAD
+<<<<<<< HEAD
   public errorInSignUp: string = '';
 =======
   public errorInSignUp = '';
 >>>>>>> cf48f35 (sign in error handling on client side)
+=======
+  public errorInSignUp: string = '';
+>>>>>>> c2a1011 (client side error handling for login page)
   public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
