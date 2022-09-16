@@ -11,7 +11,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
-  public errorInSignUp = '';
+  public errorInSignUp: string = '';
   public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {

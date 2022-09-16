@@ -10,6 +10,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignInComponent implements OnInit {
   user: IUser;
   loading: boolean;
+  public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
     this.user = {} as IUser;
@@ -17,6 +18,13 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  seeError(e: Error): void {
+    this.loading = false;
+    const error = JSON.parse(JSON.stringify(e));
+    this.errorMessage = 'Username or Password is incorrect';
+    console.log(error);
+  }
 
   public signIn(): void {
     this.loading = true;
@@ -26,9 +34,7 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['/calendar-view']);
       })
       .catch((e) => {
-        console.error('Error in sign in..');
-        console.error(e);
-        this.loading = false;
+        this.seeError(e);
       });
   }
 }
