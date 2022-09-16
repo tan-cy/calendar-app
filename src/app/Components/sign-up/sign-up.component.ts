@@ -11,7 +11,11 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
+<<<<<<< HEAD
   public errorInSignUp: string = '';
+=======
+  public errorInSignUp = '';
+>>>>>>> cf48f35 (sign in error handling on client side)
   public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
@@ -55,6 +59,7 @@ export class SignUpComponent {
       })
       .catch((e) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.seeError(e);
 =======
         console.error('Error in sign up..');
@@ -69,6 +74,9 @@ export class SignUpComponent {
           this.errorMessage = 'Come back to me later';
         }
 >>>>>>> c3b1eca (need to fix regex on password)
+=======
+        this.seeError(e);
+>>>>>>> cf48f35 (sign in error handling on client side)
       });
   }
 
