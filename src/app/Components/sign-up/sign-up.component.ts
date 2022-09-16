@@ -11,6 +11,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
+  public errorInSignUp = '';
   public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
@@ -18,8 +19,32 @@ export class SignUpComponent {
     this.user = {} as IUser;
   }
 
-  public signUp(): void {
-    this.loading = true;
+  passwordValidate(password: string): void {
+    const regexPassword = /^[\S]+.*[\S]+$/;
+    let validatePassword = (<HTMLInputElement>(
+      document.getElementById('confirmPassword')
+    )).value;
+
+    if (!regexPassword.test(password) && password.length > 0) {
+      this.user.password = '';
+      this.errorMessage =
+        'Password must contain at least 1 uppercase letter and one lowercase letter';
+    }
+    if (password !== validatePassword) {
+      this.user.password = '';
+      (<HTMLInputElement>document.getElementById('confirmPassword')).value = '';
+      this.errorMessage = 'The passwords do not match';
+    }
+  }
+  seeError(e: Error): void {
+    this.errorInSignUp = 'There was a problem';
+    this.loading = false;
+    const error = JSON.parse(JSON.stringify(e));
+    this.errorMessage = error.log;
+    console.log(error);
+  }
+
+  cognito() {
     this.cognitoService
       .signUp(this.user)
       .then(() => {
@@ -29,17 +54,16 @@ export class SignUpComponent {
         });
       })
       .catch((e) => {
-        console.error('Error in sign up..');
-        console.log(e);
-        this.loading = false;
-        console.log(e);
-        console.log(JSON.parse(JSON.stringify(e)));
-        const error = JSON.parse(JSON.stringify(e));
-        if (error.name === 'AuthError') {
-          this.errorMessage = error.log;
-        } else if (error.name === 'InvalidParameterException') {
-          this.errorMessage = 'Come back to me later';
-        }
+        this.seeError(e);
       });
+  }
+
+  public signUp(): void {
+    console.log(this.user);
+    this.passwordValidate(this.user.password);
+    this.loading = true;
+    if (!this.errorMessage) {
+      this.cognito();
+    }
   }
 }

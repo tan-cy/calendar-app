@@ -1,7 +1,13 @@
 <nav>
   <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
 </nav>
-<form ngNativeValidate>
+<form (ngSubmit)="signUp()" ngNativeValidate>
+  <div *ngIf="errorInSignUp">
+    <p>
+      {{ errorInSignUp }}
+    </p>
+  </div>
+
   <div>
     <label for="name">Name:</label>
     <input type="text" name="name" [(ngModel)]="user.name" required />
@@ -14,7 +20,7 @@
 
   <div>
     <label for="email">Email:</label>
-    <input type="text" name="email" [(ngModel)]="user.email" required />
+    <input type="email" name="email" [(ngModel)]="user.email" required />
   </div>
 
   <div>
@@ -22,14 +28,21 @@
     <input
       type="password"
       name="password"
-      pattern="^[\S]+.*[\S]+$"
       [(ngModel)]="user.password"
       required
     />
   </div>
+  <input
+    name="confirmPassword"
+    type="password"
+    id="confirmPassword"
+    placeholder="Confirm Password"
+    required
+  />
+
   <div class="errorMessageContainer" *ngIf="errorMessage">
     <p>{{ errorMessage }}</p>
   </div>
 
-  <button type="submit" (click)="signUp()" [disabled]="loading">Sign Up</button>
+  <button type="submit">Sign Up</button>
 </form>
