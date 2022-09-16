@@ -34,7 +34,6 @@ export class ScheduleDayComponent implements OnInit {
     this.eventToSchedule.date = today.toISOString().slice(0, 10);
     this.eventToSchedule.time = today.toTimeString().slice(0, 5);
     this.eventToSchedule.timezoneOffset = today.getTimezoneOffset();
-    console.log(this.eventToSchedule);
   }
 
   eventToScheduleClearDetails(): void {

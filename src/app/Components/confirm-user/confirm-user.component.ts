@@ -21,7 +21,6 @@ export class ConfirmUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      console.log(params);
       this.user = JSON.parse(params['user']);
     });
   }

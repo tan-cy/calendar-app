@@ -13,6 +13,11 @@ export interface IUser {
   username: string;
 }
 
+export interface Credentials {
+  accessKeyId: string;
+  secretAccessKey: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,7 +28,9 @@ export class CognitoService {
     Amplify.configure({
       Auth: environment.cognito,
     });
-    AWS.config.update({ region: environment.region });
+    AWS.config.update({
+      region: environment.region,
+    });
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
@@ -85,14 +92,14 @@ export class CognitoService {
       });
   }
 
-  public getCredentials(): Promise<string | void> {
+  public getUserCredentials(): Promise<any> {
     return Auth.currentUserCredentials()
       .then((credentials) => {
-        return credentials.identityId;
+        return credentials;
       })
-      .catch((e) => {
-        console.error('Error getting credentials..');
-        console.error(e);
+      .catch((err) => {
+        console.error('Error getting user credentials..');
+        console.error(err);
       });
   }
 

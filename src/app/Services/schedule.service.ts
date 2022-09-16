@@ -3,14 +3,13 @@ import { EventToSchedule } from '../Constants/ScheduleEvents';
 import { CognitoService } from './cognito.service';
 import { environment } from 'src/environments/environment';
 import * as AWS from 'aws-sdk';
-import { PutItemInput } from 'aws-sdk/clients/dynamodb';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleService {
   tokens?: string | void;
-  id?: string | void;
+  id?: string;
   docClient?: AWS.DynamoDB.DocumentClient;
 
   constructor(private cognitoService: CognitoService) {
@@ -28,28 +27,31 @@ export class ScheduleService {
         },
       });
 
-      this.id = await this.cognitoService.getCredentials();
-      console.log('Cognito Identity ID ' + this.id);
-
       // Instantiate aws sdk service objects now that the credentials have been updated
-      this.docClient = new AWS.DynamoDB.DocumentClient({
-        region: AWS.config.region,
+      await this.cognitoService.getUserCredentials().then((credentials) => {
+        this.docClient = new AWS.DynamoDB.DocumentClient({
+          region: AWS.config.region,
+          credentials: credentials,
+        });
+        this.id = credentials.identityId;
       });
     }
   }
 
-  private packageData(eventToSchedule: EventToSchedule): PutItemInput {
+  private packageData(
+    eventToSchedule: EventToSchedule
+  ): AWS.DynamoDB.DocumentClient.PutItemInput {
     return {
       TableName: environment.dynamoDb.tableName,
       Item: {
-        'cognito-user-id': { S: this.id ? this.id : '' },
-        datetime: { N: `${eventToSchedule.id}` },
-        title: { S: eventToSchedule.title },
-        date: { S: eventToSchedule.date },
-        time: { S: eventToSchedule.time },
-        location: { S: eventToSchedule.location },
-        description: { S: eventToSchedule.description },
-        timezoneOffset: { N: `${eventToSchedule.timezoneOffset}` },
+        user: this.id,
+        datetime: eventToSchedule.id,
+        title: eventToSchedule.title,
+        date: eventToSchedule.date,
+        time: eventToSchedule.time,
+        location: eventToSchedule.location,
+        description: eventToSchedule.description,
+        timezoneOffset: eventToSchedule.timezoneOffset,
       },
     };
   }
