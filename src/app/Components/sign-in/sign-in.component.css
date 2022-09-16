@@ -23,6 +23,7 @@ h1 {
   display: flex;
   justify-content: center;
   padding-bottom: 1em;
+  font-size: 1.75em;
 }
 
 #inputFields {
@@ -54,8 +55,8 @@ button {
   font-size: 1.2em;
   border: 1px solid #b8e3df;
   cursor: pointer;
-  padding-left: 6.5em;
-  padding-right: 6.5em;
+  padding-left: 7em;
+  padding-right: 7em;
 }
 
 #buttonContainer {
@@ -75,4 +76,88 @@ a {
 a:hover {
   text-decoration: underline;
   color: #37B8A0;
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  p {
+    font-size: 0.9em;
+    font-weight: 500;
+
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 0.9;
+    font-weight: bold;
+
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+  p {
+    font-size: 0.9em;
+    font-weight: 500;
+
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 0.9;
+    font-weight: bold;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  p {
+    font-size: 0.9em;
+    font-weight: 500;
+
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 0.9;
+    font-weight: bold;
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) {
+  p {
+    font-size: 0.9em;
+    font-weight: 500;
+
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 0.9;
+    font-weight: bold;
+  }
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+  p {
+    font-size: 0.9em;
+    font-weight: 500;
+
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+}
+
+@media only screen and (max-width:500px) {
+  p {
+    font-size: 0.9em;
+    font-weight: 500;
+
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 0.9;
+    font-weight: bold;
+  }
 }
