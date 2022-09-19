@@ -1,13 +1,21 @@
-<form>
-  <p>
-    Please confirm your account. The confirmation code has been sent to your
-    email.
-  </p>
-  <div>
-    <label for="confirmation-code">Confirmation Code:</label>
-    <input type="text" name="confirmation-code" [(ngModel)]="user.code" />
-  </div>
-  <button type="button" (click)="confirmUser()" [disabled]="loading">
-    Confirm
-  </button>
-</form>
+<div id="conformationBox">
+  <form>
+    <h1>Conformation Code</h1>
+    <p>
+      Please confirm your account by entering the authentication code sent to
+      your E-mail
+    </p>
+
+    <div id="inputFields">
+      <input
+        type="text"
+        name="confirmation-code"
+        placeholder="Code"
+        [(ngModel)]="user.code"
+      />
+      <button type="button" (click)="confirmUser()" [disabled]="loading">
+        Confirm
+      </button>
+    </div>
+  </form>
+</div>
