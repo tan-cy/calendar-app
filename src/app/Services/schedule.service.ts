@@ -16,25 +16,30 @@ export class ScheduleService {
     this.init();
   }
 
+  private async getCognitoCredentials(tokens: string): Promise<void> {
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: environment.cognito.identityPoolId,
+      Logins: {
+        'cognito-idp.us-east-2.amazonaws.com/us-east-2_AuHYUpLm0': tokens,
+      },
+    });
+  }
+
+  private async setDynamoDBCredentials(): Promise<void> {
+    await this.cognitoService.getUserCredentials().then((credentials) => {
+      this.docClient = new AWS.DynamoDB.DocumentClient({
+        region: AWS.config.region,
+        credentials: credentials,
+      });
+      this.id = credentials.identityId;
+    });
+  }
+
   private async init(): Promise<void> {
     this.tokens = await this.cognitoService.getJwtTokens();
     if (this.tokens) {
-      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: environment.cognito.identityPoolId,
-        Logins: {
-          'cognito-idp.us-east-2.amazonaws.com/us-east-2_AuHYUpLm0':
-            this.tokens,
-        },
-      });
-
-      // Instantiate aws sdk service objects now that the credentials have been updated
-      await this.cognitoService.getUserCredentials().then((credentials) => {
-        this.docClient = new AWS.DynamoDB.DocumentClient({
-          region: AWS.config.region,
-          credentials: credentials,
-        });
-        this.id = credentials.identityId;
-      });
+      this.getCognitoCredentials(this.tokens);
+      this.setDynamoDBCredentials();
     }
   }
 
@@ -55,6 +60,7 @@ export class ScheduleService {
       },
     };
   }
+
   public async submitEvent(eventToSchedule: EventToSchedule): Promise<boolean> {
     var params = this.packageData(eventToSchedule);
     if (this.docClient) {
