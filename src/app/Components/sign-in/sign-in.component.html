@@ -1,14 +1,31 @@
-<nav>
-  <a routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
-</nav>
-<form>
-  <div>
-    <label for="user">User:</label>
-    <input type="text" name="user" [(ngModel)]="user.username" />
-  </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" name="password" [(ngModel)]="user.password" />
-  </div>
-  <button type="button" (click)="signIn()" [disabled]="loading">Sign In</button>
-</form>
+<div id="signInBox">
+  <form ngNativeValidate>
+    <h1>Sign In</h1>
+    <div id="inputFields">
+      <input
+        type="text"
+        name="user"
+        placeholder="Username"
+        [(ngModel)]="user.username"
+        [required]="true"
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="user.password"
+        [required]="true"
+      />
+    </div>
+
+    <div id="buttonContainer">
+      <button type="submit" (click)="signIn()" [disabled]="loading">
+        Login
+      </button>
+    </div>
+    <nav>
+      <p>Don't have an account?</p>
+      <a routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
+    </nav>
+  </form>
+</div>

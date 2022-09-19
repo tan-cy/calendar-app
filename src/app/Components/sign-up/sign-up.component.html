@@ -1,26 +1,49 @@
-<nav>
-  <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
-</nav>
-<form>
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" name="name" [(ngModel)]="user.name" />
-  </div>
+<div id="signUpBox">
+  <form ngNoForm>
+    <div>
+      <div id="signUpSheet">
+        <h1>Sign Up</h1>
+        <div id="inputFields">
+          <input
+            type="text"
+            name="email"
+            placeholder="E-mail"
+            [(ngModel)]="user.email"
+            required="required"
+          />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            [(ngModel)]="user.name"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Username"
+            name="user"
+            [(ngModel)]="user.username"
+            required
+          />
 
-  <div>
-    <label for="user">User:</label>
-    <input type="text" name="user" [(ngModel)]="user.username" />
-  </div>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            [(ngModel)]="user.password"
+            required
+          />
 
-  <div>
-    <label for="email">Email:</label>
-    <input type="text" name="email" [(ngModel)]="user.email" />
-  </div>
+          <button type="submit" (click)="signUp()" [disabled]="loading">
+            Submit
+          </button>
+        </div>
 
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" name="password" [(ngModel)]="user.password" />
-  </div>
-
-  <button type="button" (click)="signUp()" [disabled]="loading">Sign Up</button>
-</form>
+        <nav>
+          <p>Already a member?</p>
+          <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
+        </nav>
+      </div>
+    </div>
+  </form>
+</div>
