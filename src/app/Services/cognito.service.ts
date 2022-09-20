@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import Amplify, { Auth } from 'aws-amplify';
-
 import { environment } from '../../environments/environment';
+import * as AWS from 'aws-sdk';
 
 export interface IUser {
   email: string;
@@ -11,6 +11,11 @@ export interface IUser {
   code: string;
   name: string;
   username: string;
+}
+
+export interface Credentials {
+  accessKeyId: string;
+  secretAccessKey: string;
 }
 
 @Injectable({
@@ -23,7 +28,9 @@ export class CognitoService {
     Amplify.configure({
       Auth: environment.cognito,
     });
-
+    AWS.config.update({
+      region: environment.region,
+    });
     this.authenticationSubject = new BehaviorSubject<boolean>(false);
   }
 
@@ -45,6 +52,15 @@ export class CognitoService {
     return Auth.confirmSignUp(user.username, user.code);
   }
 
+  // public addUserToGroup(user: IUser): Promise<any> {
+  //   const params = {
+  //     GroupName: environment.cognito.authUsersGroup,
+  //     UserPoolId: environment.cognito.userPoolId,
+  //     Username: user.username,
+  //   };
+  //   return this.cognitoIdp.adminAddUserToGroup(params).promise();
+  // }
+
   public signIn(user: IUser): Promise<any> {
     return Auth.signIn(user.username, user.password).then(() => {
       this.authenticationSubject.next(true);
@@ -63,6 +79,28 @@ export class CognitoService {
 
   public getUser(): Promise<any> {
     return Auth.currentUserInfo();
+  }
+
+  public getJwtTokens(): Promise<string | void> {
+    return Auth.currentSession()
+      .then((session) => {
+        return session.getAccessToken().getJwtToken();
+      })
+      .catch((e) => {
+        console.error('Error getting tokens..');
+        console.error(e);
+      });
+  }
+
+  public getUserCredentials(): Promise<any> {
+    return Auth.currentUserCredentials()
+      .then((credentials) => {
+        return credentials;
+      })
+      .catch((err) => {
+        console.error('Error getting user credentials..');
+        console.error(err);
+      });
   }
 
   public updateUser(user: IUser): Promise<any> {
