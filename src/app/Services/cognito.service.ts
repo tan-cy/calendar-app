@@ -70,4 +70,8 @@ export class CognitoService {
       return Auth.updateUserAttributes(cognitoUser, user);
     });
   }
+
+  public resendVerification(user: IUser): Promise<any> {
+    return Auth.resendSignUp(user.username);
+  }
 }
