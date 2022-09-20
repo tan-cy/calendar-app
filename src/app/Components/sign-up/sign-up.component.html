@@ -28,6 +28,7 @@
     <input
       type="password"
       name="password"
+      pattern="^[\S]+.*[\S]+$"
       [(ngModel)]="user.password"
       required
     />
@@ -44,5 +45,9 @@
     <p>{{ errorMessage }}</p>
   </div>
 
+<<<<<<< HEAD
   <button type="submit">Sign Up</button>
+=======
+  <button type="submit" (click)="signUp()" [disabled]="loading">Sign Up</button>
+>>>>>>> c3b1eca (need to fix regex on password)
 </form>

@@ -54,7 +54,21 @@ export class SignUpComponent {
         });
       })
       .catch((e) => {
+<<<<<<< HEAD
         this.seeError(e);
+=======
+        console.error('Error in sign up..');
+        console.log(e);
+        this.loading = false;
+        console.log(e);
+        console.log(JSON.parse(JSON.stringify(e)));
+        const error = JSON.parse(JSON.stringify(e));
+        if (error.name === 'AuthError') {
+          this.errorMessage = error.log;
+        } else if (error.name === 'InvalidParameterException') {
+          this.errorMessage = 'Come back to me later';
+        }
+>>>>>>> c3b1eca (need to fix regex on password)
       });
   }
 
