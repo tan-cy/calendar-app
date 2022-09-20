@@ -1,9 +1,17 @@
-<div id="conformationBox">
+<div id="confirmationBox">
   <form>
-    <h1>Conformation Code</h1>
+    <h1>Confirmation Code</h1>
     <p>
       Please confirm your account by entering the authentication code sent to
-      your E-mail
+      your e-mail.
+    </p>
+    <p *ngIf="verificationDestinationEmail">
+      A new verification code has been sent to
+      {{ verificationDestinationEmail }}
+    </p>
+
+    <p id="verificationError" *ngIf="error">
+      {{ error }}
     </p>
 
     <div id="inputFields">
@@ -13,9 +21,21 @@
         placeholder="Code"
         [(ngModel)]="user.code"
       />
-      <button type="button" (click)="confirmUser()" [disabled]="loading">
-        Confirm
-      </button>
+      <div id="confirmationButtons">
+        <button type="button" (click)="confirmUser()" [disabled]="loading">
+          Confirm
+        </button>
+        <div id="loading">
+          <mat-spinner *ngIf="loading" diameter="40"></mat-spinner>
+        </div>
+        <button
+          type="button"
+          (click)="resendVerification()"
+          [disabled]="loading"
+        >
+          Resend Verification
+        </button>
+      </div>
     </div>
   </form>
 </div>
