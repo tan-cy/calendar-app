@@ -3,7 +3,12 @@
   color: #0d1716;
 }
 
-#conformationBox {
+#loading {
+  display: flex;
+  justify-content: center;
+}
+
+#confirmationBox {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,9 +17,19 @@
   background-color: #b8e3df;
 }
 
+#confirmationButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+#verificationError {
+  color: red;
+}
+
 form {
   padding: 4.5em;
   background-color: white;
+  border-radius: 1em;
 }
 
 h1 {
@@ -39,6 +54,7 @@ input {
 }
 
 button {
+  width: 40%;
   border-radius: 0.7em;
   padding: 0.5em;
   background-color: #b8e3df;

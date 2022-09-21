@@ -1,17 +1,20 @@
 header {
   display: flex;
+  justify-content: center;
   align-items: center;
   font-size: calc(16px + (26 - 16) * ((100vw - 300px) / (1600 - 300)));
-  justify-content: center;
   margin-bottom: 2em;
   background: #000;
   color: #fff;
   min-height: 10vh;
   text-align: center;
 }
-div.arrows {
-  margin-left: 2em;
-  margin-bottom: 0.5em;
+
+h1 {
+  margin-left: 10%;
+  margin-right: 10%;
+  max-width: 30%;
+  min-width: 30%;
 }
 
 ul,
@@ -91,6 +94,11 @@ button {
   font-size: 1em;
   border: 1px solid #b8e3df;
   cursor: pointer;
+  align-items: center;
+}
+
+.mat-icon {
+  vertical-align: -3.5px;
 }
 
 #buttonContainer {
