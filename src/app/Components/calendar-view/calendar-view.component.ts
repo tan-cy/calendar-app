@@ -105,7 +105,6 @@ export class CalendarViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateDaysInMonthArray();
-
     this.cognitoService.getUser().then((user) => {
       if (user) {
         this.generateDaysInMonthArray();

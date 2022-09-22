@@ -35,7 +35,12 @@
         routerLink="../schedule-day"
       >
         {{ day }}
-        <app-event-view></app-event-view>
+        <app-event-view
+          [numWeeks]="this.monthData.daysArray!.length / 7"
+          month="{{ this.monthData.id }}"
+          date="{{ day }}"
+          year="{{ year }}"
+        ></app-event-view>
       </li>
     </ol>
   </div>

@@ -1,1 +1,6 @@
-<div *ngIf="events"></div>
+<div *ngFor="let event of events; let idx = index">
+  <li *ngIf="idx < maxEvents" class="event">{{ event.title }}</li>
+</div>
+<li *ngIf="events.length > maxEvents" class="show-more">
+  {{ events.length - maxEvents }} more
+</li>
