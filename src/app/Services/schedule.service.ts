@@ -3,6 +3,7 @@ import { EventToSchedule } from '../Constants/ScheduleEvents';
 import { CognitoService } from './cognito.service';
 import { environment } from 'src/environments/environment';
 import * as AWS from 'aws-sdk';
+import { UrlSerializer } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -76,10 +77,13 @@ export class ScheduleService {
     const params = {
       TableName: environment.dynamoDb.tableName,
       ExpressionAttributeNames: {
-        '#user': 'userId',
+        '#user': 'user',
         '#date': 'date',
       },
-      ExpressionAttributeValues: {},
+      ExpressionAttributeValues: {
+        ':userValue': this.id,
+        ':dateValue': dateOfEvent,
+      },
     };
 
     return params;
@@ -89,7 +93,16 @@ export class ScheduleService {
     dateOfEvent: Date
   ): Promise<boolean | AWS.DynamoDB.DocumentClient.GetItemOutput> {
     if (this.docClient) {
-      const response = this.docClient.query({});
+      const response = await this.docClient
+        .query(this.getParams(dateOfEvent), function (err, data) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(data);
+          }
+        })
+        .promise();
+      return response;
     }
 
     return false;
