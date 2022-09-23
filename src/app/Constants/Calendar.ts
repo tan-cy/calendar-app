@@ -33,7 +33,7 @@ export type MonthData = {
   id: number;
   month: string;
   day: number;
-  daysArray?: number[][];
+  daysArray?: number[];
 };
 
 export const MAX_MONTH_IDX = 11;
