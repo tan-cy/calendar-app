@@ -41,7 +41,6 @@ export class SignUpComponent {
     this.loading = false;
     const error = JSON.parse(JSON.stringify(e));
     this.errorMessage = error.log;
-    console.log(error);
   }
 
   cognito() {
@@ -59,7 +58,6 @@ export class SignUpComponent {
   }
 
   public signUp(): void {
-    console.log(this.user);
     this.passwordValidate(this.user.password);
     this.loading = true;
     if (!this.errorMessage) {
