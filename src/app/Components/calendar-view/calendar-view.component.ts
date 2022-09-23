@@ -9,6 +9,7 @@ import {
   weekdays,
 } from 'src/app/Constants/Calendar';
 import { CognitoService } from 'src/app/Services/cognito.service';
+import { ScheduleService } from 'src/app/Services/schedule.service';
 
 @Component({
   selector: 'app-calendar-view',
@@ -17,10 +18,17 @@ import { CognitoService } from 'src/app/Services/cognito.service';
 })
 export class CalendarViewComponent implements OnInit {
   @Input() dateSelected?: CalendarDate;
+
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
   public year = this.getCurrentYear();
   public monthData = this.getCurrentMonth();
+
+  constructor(
+    private router: Router,
+    private cognitoService: CognitoService,
+    public scheduleService: ScheduleService
+  ) {}
 
   generateDaysInMonthArray(): void {
     const days = this.monthData.day;
@@ -94,7 +102,14 @@ export class CalendarViewComponent implements OnInit {
       this.router.navigate(['/sign-in']);
     });
   }
-  constructor(private router: Router, private cognitoService: CognitoService) {}
+  public async displayDay(day: number[]): Promise<void> {
+    //date inserted yyyy-mm-dd
+    // const dayToNumber = Number(day.join(''));
+    const formateDateString = this.year + '-' + this.monthData.id + '-' + day;
+    const formateDate = new Date(formateDateString);
+    const result = await this.scheduleService.getEvent(formateDate);
+    console.log(result);
+  }
 
   ngOnInit(): void {
     this.generateDaysInMonthArray();

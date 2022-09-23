@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmUserComponent } from './Components/confirm-user/confirm-user.component';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
+import { ScheduleService } from 'src/app/Services/schedule.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { SignUpComponent } from './Components/sign-up/sign-up.component';
     MatProgressSpinnerModule,
   ],
 
-  providers: [],
+  providers: [ScheduleService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

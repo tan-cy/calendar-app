@@ -57,6 +57,7 @@ export class ScheduleService {
   }
   public async submitEvent(eventToSchedule: EventToSchedule): Promise<boolean> {
     var params = this.packageData(eventToSchedule);
+
     if (this.docClient) {
       this.docClient.put(params, (err, data) => {
         if (err) {
@@ -68,6 +69,29 @@ export class ScheduleService {
         }
       });
     }
+    return false;
+  }
+
+  private getParams(dateOfEvent: Date) {
+    const params = {
+      TableName: environment.dynamoDb.tableName,
+      ExpressionAttributeNames: {
+        '#user': 'userId',
+        '#date': 'date',
+      },
+      ExpressionAttributeValues: {},
+    };
+
+    return params;
+  }
+
+  public async getEvent(
+    dateOfEvent: Date
+  ): Promise<boolean | AWS.DynamoDB.DocumentClient.GetItemOutput> {
+    if (this.docClient) {
+      const response = this.docClient.query({});
+    }
+
     return false;
   }
 }

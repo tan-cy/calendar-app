@@ -32,7 +32,7 @@
     <ol class="day-grid">
       <li
         *ngFor="let day of this.monthData.daysArray"
-        routerLink="../schedule-day"
+        (click)="displayDay(day)"
       >
         {{ day }}
       </li>

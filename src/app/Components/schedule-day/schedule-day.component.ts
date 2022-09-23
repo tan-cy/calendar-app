@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScheduleService } from 'src/app/Services/schedule.service';
 import {
   EventToSchedule,
