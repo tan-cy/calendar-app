@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ScheduleService } from 'src/app/Services/schedule.service';
 import {
-  EventToSchedule,
+  CalendarEvent,
   defaultEventToSchedule,
   NO_ERRORS,
   ERROR_EVENT_EMPTY,
@@ -18,7 +18,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./schedule-day.component.css'],
 })
 export class ScheduleDayComponent implements OnInit {
-  eventToSchedule: EventToSchedule;
+  errors?: string;
+  eventToSchedule: CalendarEvent;
 
   constructor(public router: Router, public scheduleService: ScheduleService) {
     this.eventToSchedule = defaultEventToSchedule;
@@ -49,28 +50,27 @@ export class ScheduleDayComponent implements OnInit {
   /**
    * returns true if errors exists, false otherwise
    */
-  checkForErrors(): string {
+  checkForErrors(): void {
     if (this.eventToSchedule === undefined) {
       console.error(ERROR_EVENT_EMPTY);
-      return '';
+      this.displayErrors(ERROR_EVENT_EMPTY);
+    } else if (!this.eventToSchedule.date) {
+      console.error(ERROR_EMPTY_DATE);
+      this.displayErrors(ERROR_EMPTY_DATE);
+    } else if (!this.eventToSchedule.title) {
+      console.error(ERROR_EMPTY_TITLE);
+      this.displayErrors(ERROR_EMPTY_TITLE);
+    } else if (!this.eventToSchedule.time) {
+      console.error(ERROR_EMPTY_TIME);
+      this.displayErrors(ERROR_EMPTY_TIME);
     } else {
-      if (!this.eventToSchedule.date) {
-        console.error(ERROR_EMPTY_DATE);
-        return ERROR_EMPTY_DATE;
-      }
-      if (!this.eventToSchedule.title) {
-        console.error(ERROR_EMPTY_TITLE);
-        return ERROR_EMPTY_TITLE;
-      }
-      if (!this.eventToSchedule.time) {
-        console.error(ERROR_EMPTY_TIME);
-        return ERROR_EMPTY_TIME;
-      }
+      this.displayErrors(undefined);
     }
-    return NO_ERRORS;
   }
 
-  displayErrors(errors: string): void {}
+  displayErrors(errors?: string): void {
+    this.errors = errors;
+  }
 
   private setEventId(): void {
     this.eventToSchedule.id = new Date(
@@ -83,18 +83,16 @@ export class ScheduleDayComponent implements OnInit {
     const success = await this.scheduleService.submitEvent(
       this.eventToSchedule
     );
-    // if (success) {
-    this.router.navigate(['/calendar-view']);
-    // } else {
-    //   this.displayErrors(ERROR_SUBMIT_FAILED);
-    // }
+    if (success) {
+      this.router.navigate(['/calendar-view']);
+    } else {
+      this.displayErrors(ERROR_SUBMIT_FAILED);
+    }
   }
 
   onScheduleHandler(): void {
-    const errors = this.checkForErrors();
-    if (errors !== NO_ERRORS) {
-      this.displayErrors(errors);
-    } else {
+    this.checkForErrors();
+    if (!this.errors) {
       this.handleSubmitEvent();
     }
   }

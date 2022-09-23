@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { EventToSchedule } from '../Constants/ScheduleEvents';
+import { CalendarEvent } from '../Constants/ScheduleEvents';
 import { CognitoService } from './cognito.service';
 import { environment } from 'src/environments/environment';
 import * as AWS from 'aws-sdk';
@@ -39,7 +39,7 @@ export class ScheduleService {
   }
 
   private packageData(
-    eventToSchedule: EventToSchedule
+    eventToSchedule: CalendarEvent
   ): AWS.DynamoDB.DocumentClient.PutItemInput {
     return {
       TableName: environment.dynamoDb.tableName,
@@ -55,7 +55,7 @@ export class ScheduleService {
       },
     };
   }
-  public async submitEvent(eventToSchedule: EventToSchedule): Promise<boolean> {
+  public async submitEvent(eventToSchedule: CalendarEvent): Promise<boolean> {
     var params = this.packageData(eventToSchedule);
     if (this.docClient) {
       this.docClient.put(params, (err, data) => {

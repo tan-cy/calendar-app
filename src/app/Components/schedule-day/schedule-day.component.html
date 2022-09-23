@@ -49,6 +49,8 @@
         required
       ></textarea>
     </div>
-    <button (click)="onScheduleHandler()">Schedule</button>
   </form>
+  <p *ngIf="errors">{{ errors }}</p>
+
+  <button (click)="onScheduleHandler()">Schedule</button>
 </div>

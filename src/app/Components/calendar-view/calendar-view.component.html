@@ -9,7 +9,7 @@
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
   />
 
-  <div class="calendar-wrapper">
+  <div id="calendar-wrapper">
     <header>
       <div class="arrows-left">
         <button (click)="backArrowClicked()">
@@ -35,6 +35,12 @@
         routerLink="../schedule-day"
       >
         {{ day }}
+        <app-event-view
+          [numWeeks]="this.monthData.daysArray!.length / 7"
+          month="{{ this.monthData.id }}"
+          date="{{ day }}"
+          year="{{ year }}"
+        ></app-event-view>
       </li>
     </ol>
   </div>

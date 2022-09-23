@@ -30,6 +30,13 @@ export class CalendarViewComponent implements OnInit {
       daysInMonth.push(i);
     }
 
+    const daysInLastWeek = daysInMonth.length % 7;
+    const numDaysToFillLastWeek =
+      daysInLastWeek == 0 ? 0 : 7 - (daysInLastWeek % 7);
+    for (let i = 0; i < numDaysToFillLastWeek; i++) {
+      daysInMonth.push(null);
+    }
+
     this.monthData.daysArray = daysInMonth;
   }
   getCurrentMonth(): MonthData {
@@ -98,7 +105,6 @@ export class CalendarViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.generateDaysInMonthArray();
-
     this.cognitoService.getUser().then((user) => {
       if (user) {
         this.generateDaysInMonthArray();
