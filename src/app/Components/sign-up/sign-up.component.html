@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav>
   <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
 </nav>
@@ -54,3 +55,54 @@
   <button type="submit">Sign Up</button>
 >>>>>>> cf48f35 (sign in error handling on client side)
 </form>
+=======
+<div id="signUpBox">
+  <form ngNoForm>
+    <div>
+      <div id="signUpSheet">
+        <h1>Sign Up</h1>
+        <div id="inputFields">
+          <input
+            type="text"
+            name="email"
+            placeholder="E-mail"
+            [(ngModel)]="user.email"
+            required="required"
+          />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            [(ngModel)]="user.name"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Username"
+            name="user"
+            [(ngModel)]="user.username"
+            required
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            [(ngModel)]="user.password"
+            required
+          />
+
+          <button type="submit" (click)="signUp()" [disabled]="loading">
+            Submit
+          </button>
+        </div>
+
+        <nav>
+          Already a member?
+          <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
+        </nav>
+      </div>
+    </div>
+  </form>
+</div>
+>>>>>>> master

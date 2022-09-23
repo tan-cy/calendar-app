@@ -1,5 +1,7 @@
 <nav>
-  <a routerLink="" (click)="signOut()">Sign Out</a>
+  <button class="buttonContainer" routerLink="" (click)="signOut()">
+    Sign Out
+  </button>
 </nav>
 <div>
   <link
@@ -9,13 +11,15 @@
 
   <div class="calendar-wrapper">
     <header>
-      <h1>{{ this.monthData.month }} {{ year }}</h1>
-      <div class="arrows">
+      <div class="arrows-left">
         <button (click)="backArrowClicked()">
-          <mat-icon>arrow_back_ios</mat-icon>
+          <mat-icon>navigate_before</mat-icon>
         </button>
+      </div>
+      <h1>{{ this.monthData.month }} {{ year }}</h1>
+      <div class="arrows-right">
         <button (click)="nextArrowClicked()">
-          <mat-icon>arrow_forward_ios</mat-icon>
+          <mat-icon>navigate_next</mat-icon>
         </button>
       </div>
     </header>
