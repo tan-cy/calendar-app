@@ -22,6 +22,9 @@ h1 {
   padding: 4.5em;
   background-color: white;
   border-radius: 1em;
+  width: 30vw;
+  height: 25vw;
+  max-width: 30vw;
 }
 
 #inputFields {
@@ -35,6 +38,8 @@ input {
   border-radius: 0.7em;
   border-color: #c4c4c4;
 }
+
+
 
 p.errorMessageContainer {
   color: red;

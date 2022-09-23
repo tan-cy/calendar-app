@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {
+  REGEX_PASS,
+  ERR_PASS_POL,
+  ERR_PASS_MATCH,
+} from 'src/app/Constants/User';
 import { IUser, CognitoService } from '../../Services/cognito.service';
 
 @Component({
@@ -11,8 +15,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
-  public errorInSignUp: string = '';
-  public errorMessage: string = '';
+  errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
     this.loading = false;
@@ -20,27 +23,22 @@ export class SignUpComponent {
   }
 
   passwordValidate(password: string): void {
-    const regexPassword = /^[\S]+.*[\S]+$/;
     let validatePassword = (<HTMLInputElement>(
       document.getElementById('confirmPassword')
     )).value;
 
-    if (!regexPassword.test(password) && password.length > 5) {
+    if (!REGEX_PASS.test(password) || password.length < 5) {
       this.user.password = '';
-      this.errorMessage =
-        'Password must contain at least 1 uppercase letter and one lowercase letter';
+      this.errorMessage = ERR_PASS_POL;
     }
     if (password !== validatePassword) {
+      this.errorMessage = ERR_PASS_MATCH;
       this.user.password = '';
       (<HTMLInputElement>document.getElementById('confirmPassword')).value = '';
-      this.errorMessage = 'The passwords do not match';
     }
   }
   seeError(e: Error): void {
-    this.errorInSignUp = 'There was a problem';
-    this.loading = false;
-    const error = JSON.parse(JSON.stringify(e));
-    this.errorMessage = error.log;
+    this.errorMessage = e.message;
   }
 
   cognito() {

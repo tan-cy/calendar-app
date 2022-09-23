@@ -23,9 +23,7 @@
         Login
       </button>
     </div>
-    <div *ngIf="errorMessage">
-      <p class="errorMessageContainer">{{ errorMessage }}</p>
-    </div>
+    <p *ngIf="errorMessage" class="errorMessageContainer">{{ errorMessage }}</p>
     <nav>
       Don't have an account?
       <a routerLink="/sign-up" routerLinkActive="active">Sign Up</a>

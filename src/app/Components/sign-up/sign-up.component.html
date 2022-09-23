@@ -3,11 +3,6 @@
     <div>
       <div id="signUpSheet">
         <h1>Sign Up</h1>
-        <div *ngIf="errorInSignUp">
-          <p>
-            {{ errorInSignUp }}
-          </p>
-        </div>
         <div id="inputFields">
           <input
             type="text"
@@ -48,10 +43,9 @@
 
           <button type="submit">Submit</button>
         </div>
-        <div *ngIf="errorMessage">
-          <p class="errorMessageContainer">{{ errorMessage }}</p>
-        </div>
-
+        <p *ngIf="errorMessage" class="errorMessageContainer">
+          {{ errorMessage }}
+        </p>
         <nav>
           Already a member?
           <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
