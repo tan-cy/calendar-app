@@ -11,15 +11,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
-<<<<<<< HEAD
-<<<<<<< HEAD
   public errorInSignUp: string = '';
-=======
-  public errorInSignUp = '';
->>>>>>> cf48f35 (sign in error handling on client side)
-=======
-  public errorInSignUp: string = '';
->>>>>>> c2a1011 (client side error handling for login page)
   public errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
@@ -33,7 +25,7 @@ export class SignUpComponent {
       document.getElementById('confirmPassword')
     )).value;
 
-    if (!regexPassword.test(password) && password.length > 0) {
+    if (!regexPassword.test(password) && password.length > 5) {
       this.user.password = '';
       this.errorMessage =
         'Password must contain at least 1 uppercase letter and one lowercase letter';
@@ -62,25 +54,7 @@ export class SignUpComponent {
         });
       })
       .catch((e) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
         this.seeError(e);
-=======
-        console.error('Error in sign up..');
-        console.log(e);
-        this.loading = false;
-        console.log(e);
-        console.log(JSON.parse(JSON.stringify(e)));
-        const error = JSON.parse(JSON.stringify(e));
-        if (error.name === 'AuthError') {
-          this.errorMessage = error.log;
-        } else if (error.name === 'InvalidParameterException') {
-          this.errorMessage = 'Come back to me later';
-        }
->>>>>>> c3b1eca (need to fix regex on password)
-=======
-        this.seeError(e);
->>>>>>> cf48f35 (sign in error handling on client side)
       });
   }
 

@@ -1,73 +1,20 @@
-<<<<<<< HEAD
-<nav>
-  <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
-</nav>
-<form (ngSubmit)="signUp()" ngNativeValidate>
-  <div *ngIf="errorInSignUp">
-    <p>
-      {{ errorInSignUp }}
-    </p>
-  </div>
-
-  <div>
-    <label for="name">Name:</label>
-    <input type="text" name="name" [(ngModel)]="user.name" required />
-  </div>
-
-  <div>
-    <label for="user">User:</label>
-    <input type="text" name="user" [(ngModel)]="user.username" required />
-  </div>
-
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" name="email" [(ngModel)]="user.email" required />
-  </div>
-
-  <div>
-    <label for="password">Password:</label>
-    <input
-      type="password"
-      name="password"
-      [(ngModel)]="user.password"
-      required
-    />
-  </div>
-  <input
-    name="confirmPassword"
-    type="password"
-    id="confirmPassword"
-    placeholder="Confirm Password"
-    required
-  />
-
-  <div class="errorMessageContainer" *ngIf="errorMessage">
-    <p>{{ errorMessage }}</p>
-  </div>
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <button type="submit">Sign Up</button>
-=======
-  <button type="submit" (click)="signUp()" [disabled]="loading">Sign Up</button>
->>>>>>> c3b1eca (need to fix regex on password)
-=======
-  <button type="submit">Sign Up</button>
->>>>>>> cf48f35 (sign in error handling on client side)
-</form>
-=======
 <div id="signUpBox">
-  <form ngNoForm>
+  <form (ngSubmit)="signUp()" ngNativeValidate id="">
     <div>
       <div id="signUpSheet">
         <h1>Sign Up</h1>
+        <div *ngIf="errorInSignUp">
+          <p>
+            {{ errorInSignUp }}
+          </p>
+        </div>
         <div id="inputFields">
           <input
             type="text"
             name="email"
             placeholder="E-mail"
             [(ngModel)]="user.email"
-            required="required"
+            required
           />
           <input
             type="text"
@@ -91,10 +38,18 @@
             [(ngModel)]="user.password"
             required
           />
+          <input
+            type="password"
+            name="confirm password"
+            placeholder="Confirm Password"
+            id="confirmPassword"
+            required
+          />
 
-          <button type="submit" (click)="signUp()" [disabled]="loading">
-            Submit
-          </button>
+          <button type="submit">Submit</button>
+        </div>
+        <div *ngIf="errorMessage">
+          <p class="errorMessageContainer">{{ errorMessage }}</p>
         </div>
 
         <nav>
@@ -105,4 +60,3 @@
     </div>
   </form>
 </div>
->>>>>>> master

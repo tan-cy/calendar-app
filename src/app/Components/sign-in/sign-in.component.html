@@ -23,8 +23,8 @@
         Login
       </button>
     </div>
-    <div class="errorMessageContainer" *ngIf="errorMessage">
-      <p>{{ errorMessage }}</p>
+    <div *ngIf="errorMessage">
+      <p class="errorMessageContainer">{{ errorMessage }}</p>
     </div>
     <nav>
       Don't have an account?
