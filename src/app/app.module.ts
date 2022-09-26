@@ -12,6 +12,9 @@ import { ConfirmUserComponent } from './Components/confirm-user/confirm-user.com
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/sign-up/sign-up.component';
 import { EventViewComponent } from './Components/event-view/event-view.component';
+import { MonthViewComponent } from './Components/month-view/month-view.component';
+import { DayViewComponent } from './Components/day-view/day-view.component';
+import { WeekViewComponent } from './Components/week-view/week-view.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { EventViewComponent } from './Components/event-view/event-view.component
     SignInComponent,
     SignUpComponent,
     EventViewComponent,
+    MonthViewComponent,
+    DayViewComponent,
+    WeekViewComponent,
   ],
   imports: [
     BrowserModule,
