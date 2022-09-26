@@ -57,8 +57,6 @@ ol.day-grid {
 ol.day-grid li {
   background-color: #eaeaea;
   border: 1px solid #eaeaea;
-  padding-top: 5px;
-  padding-left: 5px;
   flex-direction: column;
 }
 
@@ -101,5 +99,20 @@ button {
 
 #buttonContainer {
   display: flex;
+  justify-content: center;
+}
+
+p {
+  width: 100%;
+  margin-left: 0.25em;
+  margin-top: 0.25em;
+}
+p:hover {
+  background-color: lightgrey;
+  border-radius: 50%;
+  width: calc(16px + (26 - 16) * ((100vw - 300px) / (1600 - 300)) + 5px);
+  height: calc(16px + (26 - 16) * ((100vw - 300px) / (1600 - 300)) + 5px);
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
 }

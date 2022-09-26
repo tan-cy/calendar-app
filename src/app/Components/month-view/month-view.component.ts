@@ -1,7 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import {
-  CalendarDate,
   MAX_MONTH_IDX,
   MIN_MONTH_IDX,
   MonthData,
@@ -20,7 +18,7 @@ export class MonthViewComponent implements OnInit {
   public year = this.getCurrentYear();
   public monthData = this.getCurrentMonth();
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.generateDaysInMonthArray();
