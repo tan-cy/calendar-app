@@ -23,15 +23,11 @@ export class SignUpComponent {
   }
 
   passwordValidate(password: string): void {
-    let validatePassword = (<HTMLInputElement>(
-      document.getElementById('confirmPassword')
-    )).value;
-
     if (!REGEX_PASS.test(password) || password.length < 5) {
       this.user.password = '';
       this.errorMessage = ERR_PASS_POL;
     }
-    if (password !== validatePassword) {
+    if (password !== this.user.confirmPassword) {
       this.errorMessage = ERR_PASS_MATCH;
       this.user.password = '';
       (<HTMLInputElement>document.getElementById('confirmPassword')).value = '';
@@ -41,7 +37,7 @@ export class SignUpComponent {
     this.errorMessage = e.message;
   }
 
-  cognito() {
+  submitUserToCognito() {
     this.cognitoService
       .signUp(this.user)
       .then(() => {
@@ -59,7 +55,7 @@ export class SignUpComponent {
     this.passwordValidate(this.user.password);
     this.loading = true;
     if (!this.errorMessage) {
-      this.cognito();
+      this.submitUserToCognito();
     }
   }
 }
