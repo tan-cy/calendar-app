@@ -40,7 +40,7 @@ export const MAX_MONTH_IDX = 11;
 export const MIN_MONTH_IDX = 0;
 
 export enum CalendarView {
-  DAY_VIEW = 'day_view',
-  WEEK_VIEW = 'week_view',
-  MONTH_VIEW = 'month_view',
+  DAY_VIEW = 'Day',
+  WEEK_VIEW = 'Week',
+  MONTH_VIEW = 'Month',
 }

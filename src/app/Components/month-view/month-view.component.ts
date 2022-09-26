@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   CalendarDate,
@@ -14,13 +14,13 @@ import {
   styleUrls: ['./month-view.component.css'],
 })
 export class MonthViewComponent implements OnInit {
-  @Input() dateSelected?: CalendarDate;
+  @Output() dateSelected = new EventEmitter<string>();
   public monthsWithDays = monthsWithDays;
   public weekdays = weekdays;
   public year = this.getCurrentYear();
   public monthData = this.getCurrentMonth();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.generateDaysInMonthArray();
@@ -98,5 +98,12 @@ export class MonthViewComponent implements OnInit {
     this.setNextYear();
     this.setNextMonth();
     this.generateDaysInMonthArray();
+  }
+
+  goToDay(day: number): void {
+    const monthString = this.monthData.id.toString().padStart(2, '0');
+    const dayString = day.toString().padStart(2, '0');
+    const date = this.year + '-' + monthString + '-' + dayString;
+    this.dateSelected.emit(date);
   }
 }

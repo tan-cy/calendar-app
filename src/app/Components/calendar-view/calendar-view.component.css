@@ -1,9 +1,10 @@
 nav {
-  justify-content: flex-end;
   display: flex;
+  justify-content: space-between;
   max-height: 5vh;
 }
-button {
+button,
+select {
   border-radius: 0.3em;
   padding: 1vh;
   background-color: #b8e3df;

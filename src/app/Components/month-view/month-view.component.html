@@ -29,7 +29,7 @@
         *ngFor="let day of this.monthData.daysArray"
         routerLink="../schedule-day"
       >
-        {{ day }}
+        <p (click)="goToDay(day)">{{ day }}</p>
         <app-event-view
           [numWeeks]="this.monthData.daysArray!.length / 7"
           month="{{ this.monthData.id }}"

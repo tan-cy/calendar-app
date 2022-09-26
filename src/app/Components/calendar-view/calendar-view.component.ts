@@ -8,9 +8,13 @@ import { CalendarView } from 'src/app/Constants/Calendar';
   styleUrls: ['./calendar-view.component.css'],
 })
 export class CalendarViewComponent implements OnInit {
+  dateSelected?: string;
   view?: CalendarView;
+  calendarViews?: CalendarView[];
   CalendarView = CalendarView;
-  constructor(private router: Router, private cognitoService: CognitoService) {}
+  constructor(private router: Router, private cognitoService: CognitoService) {
+    this.calendarViews = Object.values(CalendarView);
+  }
 
   ngOnInit(): void {
     this.confirmUserLoggedIn();
@@ -30,5 +34,16 @@ export class CalendarViewComponent implements OnInit {
     this.cognitoService.signOut().then(() => {
       this.router.navigate(['/sign-in']);
     });
+  }
+
+  public setView(event: any): void {
+    this.view = event.target.value;
+    this.dateSelected = undefined;
+  }
+
+  public onDateSelected(date: string): void {
+    this.view = CalendarView.DAY_VIEW;
+    this.dateSelected = date;
+    console.log(this.dateSelected);
   }
 }

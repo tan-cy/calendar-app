@@ -16,9 +16,7 @@ export class EventViewComponent implements OnInit {
 
   constructor(private fetchEventsService: FetchEventsService) {}
 
-  ngOnInit(): void {
-    console.log(this.numWeeks);
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.setMaxEventsToDisplay();

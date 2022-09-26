@@ -1,8 +1,19 @@
 <nav>
-  <button class="buttonContainer" routerLink="" (click)="signOut()">
-    Sign Out
-  </button>
+  <select (change)="setView($event)" [value]="view">
+    <option *ngFor="let view of calendarViews">
+      {{ view }}
+    </option>
+  </select>
+  <button routerLink="" (click)="signOut()">Sign Out</button>
 </nav>
 <div>
-  <app-month-view *ngIf="view === CalendarView.MONTH_VIEW"></app-month-view>
+  <app-month-view
+    *ngIf="view === CalendarView.MONTH_VIEW"
+    (dateSelected)="onDateSelected($event)"
+  ></app-month-view>
+  <app-week-view *ngIf="view === CalendarView.WEEK_VIEW"></app-week-view>
+  <app-day-view
+    *ngIf="view === CalendarView.DAY_VIEW"
+    [date]="dateSelected"
+  ></app-day-view>
 </div>
