@@ -76,13 +76,16 @@ export class ScheduleService {
   private getParams(dateOfEvent: Date) {
     const params = {
       TableName: environment.dynamoDb.tableName,
+      Key: {
+        hashKey: this.id,
+      },
       ExpressionAttributeNames: {
         '#user': 'user',
         '#date': 'date',
       },
       ExpressionAttributeValues: {
-        ':userValue': this.id,
-        ':dateValue': dateOfEvent,
+        ':user': this.id,
+        ':date': dateOfEvent,
       },
     };
 
@@ -94,14 +97,9 @@ export class ScheduleService {
   ): Promise<boolean | AWS.DynamoDB.DocumentClient.GetItemOutput> {
     if (this.docClient) {
       const response = await this.docClient
-        .query(this.getParams(dateOfEvent), function (err, data) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(data);
-          }
-        })
+        .get(this.getParams(dateOfEvent))
         .promise();
+
       return response;
     }
 
