@@ -102,12 +102,35 @@ export class CalendarViewComponent implements OnInit {
       this.router.navigate(['/sign-in']);
     });
   }
+  reformatDay(day: number[]): string {
+    let dayReformat: string;
+    if (day.length === 1) {
+      dayReformat = '0' + day.toString();
+    } else {
+      dayReformat = day.toString();
+    }
+    return dayReformat;
+  }
+
+  reformatMonth(month: number): string {
+    let monthReformat: string;
+    const monthString = month.toString();
+    if (monthString.length === 1) {
+      monthReformat = '0' + monthString;
+    } else {
+      monthReformat = monthString;
+    }
+    return monthReformat;
+  }
+
   public async displayDay(day: number[]): Promise<void> {
     //date inserted yyyy-mm-dd
     // const dayToNumber = Number(day.join(''));
-    const formateDateString = this.year + '-' + this.monthData.id + '-' + day;
-    const formateDate = new Date(formateDateString);
-    const result = await this.scheduleService.getEvent(formateDate);
+
+    let dayReform = this.reformatDay(day);
+    let monthReform = this.reformatMonth(this.monthData.id);
+    const formateDateString = this.year + '-' + monthReform + '-' + dayReform;
+    const result = await this.scheduleService.getEvent(formateDateString);
     console.log(result);
   }
 

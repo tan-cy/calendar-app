@@ -3,7 +3,6 @@ import { EventToSchedule } from '../Constants/ScheduleEvents';
 import { CognitoService } from './cognito.service';
 import { environment } from 'src/environments/environment';
 import * as AWS from 'aws-sdk';
-import { UrlSerializer } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -73,12 +72,31 @@ export class ScheduleService {
     return false;
   }
 
-  private getParams(dateOfEvent: Date) {
+  getSortKey() {
+    var params = {
+      TableName: environment.dynamoDb.tableName,
+      IndexName: 'HashKey',
+      KeyConditionExpression: 'HashKey = :hkey and user = :user',
+      ExpressionAttributeValues: {
+        ':hkey': 'key',
+        ':user': this.id,
+      },
+    };
+    if (this.docClient) {
+      this.docClient.query(params, function (err, data) {
+        if (err) {
+          console.log(err);
+        }
+        return data;
+      });
+    }
+  }
+
+  private getParamsForDate(dateOfEvent: string) {
     const params = {
       TableName: environment.dynamoDb.tableName,
-      Key: {
-        hashKey: this.id,
-      },
+      IndexName: 'datetime',
+      KeyConditionExpression: '#user = :user and #date = :date',
       ExpressionAttributeNames: {
         '#user': 'user',
         '#date': 'date',
@@ -86,6 +104,7 @@ export class ScheduleService {
       ExpressionAttributeValues: {
         ':user': this.id,
         ':date': dateOfEvent,
+        ':datetime': this.getSortKey(),
       },
     };
 
@@ -93,11 +112,11 @@ export class ScheduleService {
   }
 
   public async getEvent(
-    dateOfEvent: Date
+    dateOfEvent: string
   ): Promise<boolean | AWS.DynamoDB.DocumentClient.GetItemOutput> {
     if (this.docClient) {
       const response = await this.docClient
-        .get(this.getParams(dateOfEvent))
+        .query(this.getParamsForDate(dateOfEvent))
         .promise();
 
       return response;
