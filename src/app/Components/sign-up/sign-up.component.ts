@@ -30,7 +30,7 @@ export class SignUpComponent {
     if (password !== this.user.confirmPassword) {
       this.errorMessage = ERR_PASS_MATCH;
       this.user.password = '';
-      (<HTMLInputElement>document.getElementById('confirmPassword')).value = '';
+      this.user.confirmPassword = '';
     }
   }
   seeError(e: Error): void {
