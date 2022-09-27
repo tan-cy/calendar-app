@@ -1,4 +1,4 @@
-export const monthsWithDays: MonthData[] = [
+export const MONTHS_WITH_DAYS: MonthData[] = [
   { id: 1, month: 'January', day: 31 },
   { id: 2, month: 'February', day: 28 },
   { id: 3, month: 'March', day: 31 },
@@ -12,7 +12,7 @@ export const monthsWithDays: MonthData[] = [
   { id: 11, month: 'November', day: 30 },
   { id: 12, month: 'December', day: 31 },
 ];
-export const weekdays: { id: number; day: string }[] = [
+export const WEEKDAYS: { id: number; day: string }[] = [
   { id: 0, day: 'Sunday' },
   { id: 1, day: 'Monday' },
   { id: 2, day: 'Tuesday' },

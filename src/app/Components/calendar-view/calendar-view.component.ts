@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CognitoService } from 'src/app/Services/cognito.service';
-import { CalendarView } from 'src/app/Constants/Calendar';
+import { CalendarDate, CalendarView } from 'src/app/Constants/Calendar';
 @Component({
   selector: 'app-calendar-view',
   templateUrl: './calendar-view.component.html',
   styleUrls: ['./calendar-view.component.css'],
 })
 export class CalendarViewComponent implements OnInit {
-  dateSelected?: string;
+  dateSelected?: CalendarDate;
   view?: CalendarView;
   calendarViews?: CalendarView[];
   CalendarView = CalendarView;
@@ -41,9 +41,8 @@ export class CalendarViewComponent implements OnInit {
     this.dateSelected = undefined;
   }
 
-  public onDateSelected(date: string): void {
+  public onDateSelected(dateString: string): void {
     this.view = CalendarView.DAY_VIEW;
-    this.dateSelected = date;
-    console.log(this.dateSelected);
+    this.dateSelected = JSON.parse(dateString);
   }
 }

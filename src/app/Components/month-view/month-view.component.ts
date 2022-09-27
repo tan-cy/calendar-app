@@ -3,9 +3,10 @@ import {
   MAX_MONTH_IDX,
   MIN_MONTH_IDX,
   MonthData,
-  monthsWithDays,
-  weekdays,
+  MONTHS_WITH_DAYS,
+  WEEKDAYS,
 } from 'src/app/Constants/Calendar';
+
 @Component({
   selector: 'app-month-view',
   templateUrl: './month-view.component.html',
@@ -13,10 +14,9 @@ import {
 })
 export class MonthViewComponent implements OnInit {
   @Output() dateSelected = new EventEmitter<string>();
-  public monthsWithDays = monthsWithDays;
-  public weekdays = weekdays;
   public year = this.getCurrentYear();
   public monthData = this.getCurrentMonth();
+  public weekdays = WEEKDAYS;
 
   constructor() {}
 
@@ -26,7 +26,7 @@ export class MonthViewComponent implements OnInit {
 
   generateDaysInMonthArray(): void {
     const days = this.monthData.day;
-    const firstDayOfMonth = this.getWeekdayForFirstOfMonth(this.monthData.id);
+    const firstDayOfMonth = this.getWeekdayIdForDay(this.monthData.id);
     let daysInMonth = new Array(firstDayOfMonth).fill(null);
     for (let i = 1; i <= days; i++) {
       daysInMonth.push(i);
@@ -43,15 +43,15 @@ export class MonthViewComponent implements OnInit {
   }
   getCurrentMonth(): MonthData {
     const d = new Date();
-    return monthsWithDays[d.getMonth()];
+    return MONTHS_WITH_DAYS[d.getMonth()];
   }
   getCurrentYear(): number {
     const y = new Date();
     return y.getFullYear();
   }
 
-  getWeekdayForFirstOfMonth(month: number): number {
-    const day = new Date(this.year + '-' + month + '-01').getUTCDay();
+  getWeekdayIdForDay(month: number, date = 1): number {
+    const day = new Date(this.year + '-' + month + '-' + date).getUTCDay();
     return day;
   }
 
@@ -75,7 +75,7 @@ export class MonthViewComponent implements OnInit {
     } else {
       prevMonthIndex = currentMonthIndex - 1;
     }
-    this.monthData = monthsWithDays[prevMonthIndex];
+    this.monthData = MONTHS_WITH_DAYS[prevMonthIndex];
   }
   setNextMonth(): void {
     const currentMonthIndex = this.monthData.id - 1;
@@ -85,7 +85,7 @@ export class MonthViewComponent implements OnInit {
     } else {
       nextMonthIndex = currentMonthIndex + 1;
     }
-    this.monthData = monthsWithDays[nextMonthIndex];
+    this.monthData = MONTHS_WITH_DAYS[nextMonthIndex];
   }
   backArrowClicked(): void {
     this.setPreviousYear();
@@ -99,9 +99,12 @@ export class MonthViewComponent implements OnInit {
   }
 
   goToDay(day: number): void {
-    const monthString = this.monthData.id.toString().padStart(2, '0');
-    const dayString = day.toString().padStart(2, '0');
-    const date = this.year + '-' + monthString + '-' + dayString;
-    this.dateSelected.emit(date);
+    const date = {
+      weekday: WEEKDAYS[this.getWeekdayIdForDay(this.monthData.id, day)].day,
+      month: this.monthData.month,
+      day: day,
+      year: this.year,
+    };
+    this.dateSelected.emit(JSON.stringify(date));
   }
 }

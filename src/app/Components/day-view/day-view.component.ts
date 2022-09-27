@@ -1,5 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  CalendarDate,
+  MONTHS_WITH_DAYS,
+  WEEKDAYS,
+} from 'src/app/Constants/Calendar';
 
 @Component({
   selector: 'app-day-view',
@@ -7,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./day-view.component.css'],
 })
 export class DayViewComponent implements OnInit {
-  @Input() date?: string;
+  @Input() date?: CalendarDate;
   constructor() {}
 
   ngOnInit(): void {
@@ -16,8 +20,18 @@ export class DayViewComponent implements OnInit {
 
   private getDate(): void {
     if (!this.date) {
-      this.date = new Date().toISOString().slice(0, 10);
+      const today = new Date();
+      this.date = {
+        weekday: WEEKDAYS[today.getDay()].day,
+        month: MONTHS_WITH_DAYS[today.getMonth()].month,
+        day: today.getDate(),
+        year: today.getFullYear(),
+      };
     }
-    console.log('date', this.date);
+    console.log(this.date);
   }
+
+  public backArrowClicked(): void {}
+
+  public nextArrowClicked(): void {}
 }

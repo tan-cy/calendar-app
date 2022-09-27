@@ -1,0 +1,62 @@
+#calendar-wrapper {
+  height: 93vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+  background: #000;
+  color: #fff;
+  min-height: 10vh;
+  max-height: 10vh;
+  text-align: flex-start;
+  width: 100%;
+}
+
+#date {
+  width: 50%;
+  height: 10vh;
+  margin-left: 2em;
+  align-items: center;
+}
+
+h1 {
+  height: 56%;
+  margin-top: 1vh;
+  margin-bottom: 0;
+}
+h3 {
+  height: 40%;
+  margin-top: -1vh;
+  margin-bottom: 2%;
+}
+
+#arrows {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2em;
+}
+
+button {
+  border-radius: 0.3em;
+  padding: 1vh;
+  background-color: #b8e3df;
+  font-size: 2vh;
+  border: 1px solid #b8e3df;
+  cursor: pointer;
+  align-items: center;
+  margin-left: 2%;
+}
+
+.mat-icon {
+  vertical-align: -3.5px;
+}
+
+@media all and (max-width: 350px) {
+  h3::after {
+    content: attr(title);
+  }
+}

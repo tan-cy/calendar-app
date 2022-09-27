@@ -1,1 +1,29 @@
-<p>day-view works!</p>
+<div>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+
+  <div id="calendar-wrapper">
+    <header>
+      <div id="date">
+        <h1 *ngIf="this.date">
+          {{ this.date.weekday }}
+        </h1>
+        <h3 *ngIf="this.date" title="TEST">
+          {{ this.date.month }}
+          {{ this.date.day }},
+          {{ this.date.year }}
+        </h3>
+      </div>
+      <div id="arrows">
+        <button (click)="backArrowClicked()">
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button (click)="nextArrowClicked()">
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </header>
+  </div>
+</div>

@@ -1,8 +1,11 @@
 <nav>
-  <select (change)="setView($event)" [value]="view">
-    <option *ngFor="let view of calendarViews">
-      {{ view }}
-    </option>
+  <select (change)="setView($event)">
+    <option selected>{{ view }}</option>
+    <ng-container *ngFor="let calendarView of calendarViews">
+      <option *ngIf="calendarView !== view">
+        {{ calendarView }}
+      </option>
+    </ng-container>
   </select>
   <button routerLink="" (click)="signOut()">Sign Out</button>
 </nav>

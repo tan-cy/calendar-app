@@ -97,11 +97,6 @@ button {
   vertical-align: -3.5px;
 }
 
-#buttonContainer {
-  display: flex;
-  justify-content: center;
-}
-
 p {
   width: 100%;
   margin-left: 0.25em;
