@@ -6,15 +6,16 @@
 
   <div id="calendar-wrapper">
     <header>
-      <div id="date">
+      <div id="date-container">
         <h1 *ngIf="this.date">
           {{ this.date.weekday }}
         </h1>
-        <h3 *ngIf="this.date" title="TEST">
+        <h3 class="full-date" *ngIf="this.date">
           {{ this.date.month }}
           {{ this.date.day }},
           {{ this.date.year }}
         </h3>
+        <h3 class="short-date">{{ shortDate }}</h3>
       </div>
       <div id="arrows">
         <button (click)="backArrowClicked()">

@@ -15,7 +15,7 @@ header {
   width: 100%;
 }
 
-#date {
+#date-container {
   width: 50%;
   height: 10vh;
   margin-left: 2em;
@@ -55,8 +55,18 @@ button {
   vertical-align: -3.5px;
 }
 
+.full-date {
+  display: inline-block;
+}
+.short-date {
+  display: none;
+}
+
 @media all and (max-width: 350px) {
-  h3::after {
-    content: attr(title);
+  .full-date {
+    display: none;
+  }
+  .short-date {
+    display: inline-block;
   }
 }

@@ -25,6 +25,7 @@ export const WEEKDAYS: { id: number; day: string }[] = [
 export type CalendarDate = {
   weekday: string;
   month: string;
+  monthId: number;
   day: number;
   year: number;
 };

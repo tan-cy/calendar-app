@@ -102,6 +102,7 @@ export class MonthViewComponent implements OnInit {
     const date = {
       weekday: WEEKDAYS[this.getWeekdayIdForDay(this.monthData.id, day)].day,
       month: this.monthData.month,
+      monthId: this.monthData.id,
       day: day,
       year: this.year,
     };

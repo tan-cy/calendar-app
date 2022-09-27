@@ -12,6 +12,7 @@ import {
 })
 export class DayViewComponent implements OnInit {
   @Input() date?: CalendarDate;
+  shortDate?: string;
   constructor() {}
 
   ngOnInit(): void {
@@ -24,11 +25,17 @@ export class DayViewComponent implements OnInit {
       this.date = {
         weekday: WEEKDAYS[today.getDay()].day,
         month: MONTHS_WITH_DAYS[today.getMonth()].month,
+        monthId: today.getMonth() + 1,
         day: today.getDate(),
         year: today.getFullYear(),
       };
     }
-    console.log(this.date);
+    this.shortDate =
+      this.date.monthId.toString().padStart(2, '0') +
+      '/' +
+      this.date.day.toString().padStart(2, '0') +
+      '/' +
+      this.date.year.toString().substring(2);
   }
 
   public backArrowClicked(): void {}
