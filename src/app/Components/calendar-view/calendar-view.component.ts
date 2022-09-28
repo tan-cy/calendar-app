@@ -10,6 +10,7 @@ import {
 } from 'src/app/Constants/Calendar';
 import { CognitoService } from 'src/app/Services/cognito.service';
 import { ScheduleService } from 'src/app/Services/schedule.service';
+import { ItemList } from 'aws-sdk/clients/dynamodb';
 
 @Component({
   selector: 'app-calendar-view',
@@ -123,15 +124,15 @@ export class CalendarViewComponent implements OnInit {
     return monthReformat;
   }
 
-  public async displayDay(day: number[]): Promise<void> {
+  public async displayMonth(): Promise<void> {
     //date inserted yyyy-mm-dd
     // const dayToNumber = Number(day.join(''));
+    const formatMonth = this.reformatMonth(this.monthData.id);
 
-    let dayReform = this.reformatDay(day);
-    let monthReform = this.reformatMonth(this.monthData.id);
-    const formateDateString = this.year + '-' + monthReform + '-' + dayReform;
-    const result = await this.scheduleService.getEvent(formateDateString);
-    console.log(result);
+    const result = await this.scheduleService.getUserEvents();
+    if (result) {
+      console.log(result);
+    }
   }
 
   ngOnInit(): void {

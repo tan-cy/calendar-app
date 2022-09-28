@@ -3,6 +3,7 @@ import { EventToSchedule } from '../Constants/ScheduleEvents';
 import { CognitoService } from './cognito.service';
 import { environment } from 'src/environments/environment';
 import * as AWS from 'aws-sdk';
+import { ItemList } from 'aws-sdk/clients/dynamodb';
 
 @Injectable({
   providedIn: 'root',
@@ -72,56 +73,36 @@ export class ScheduleService {
     return false;
   }
 
-  getSortKey() {
-    var params = {
+  private getParamsForUser() {
+    return {
       TableName: environment.dynamoDb.tableName,
-      IndexName: 'HashKey',
-      KeyConditionExpression: 'HashKey = :hkey and user = :user',
-      ExpressionAttributeValues: {
-        ':hkey': 'key',
-        ':user': this.id,
-      },
-    };
-    if (this.docClient) {
-      this.docClient.query(params, function (err, data) {
-        if (err) {
-          console.log(err);
-        }
-        return data;
-      });
-    }
-  }
-
-  private getParamsForDate(dateOfEvent: string) {
-    const params = {
-      TableName: environment.dynamoDb.tableName,
-      IndexName: 'datetime',
-      KeyConditionExpression: '#user = :user and #date = :date',
+      KeyConditionExpression: '#user = :u',
       ExpressionAttributeNames: {
         '#user': 'user',
-        '#date': 'date',
       },
       ExpressionAttributeValues: {
-        ':user': this.id,
-        ':date': dateOfEvent,
-        ':datetime': this.getSortKey(),
+        ':u': this.id,
       },
     };
-
-    return params;
   }
 
-  public async getEvent(
-    dateOfEvent: string
-  ): Promise<boolean | AWS.DynamoDB.DocumentClient.GetItemOutput> {
+  public async getUserEvents(): Promise<boolean | ItemList> {
     if (this.docClient) {
       const response = await this.docClient
-        .query(this.getParamsForDate(dateOfEvent))
+        .query(this.getParamsForUser())
         .promise();
 
-      return response;
+      if (response.Items !== undefined) {
+        return response.Items;
+      }
+      return false;
     }
 
     return false;
+  }
+
+  getMonthEvent(month: string) {
+    const events = this.getUserEvents()
+    
   }
 }
