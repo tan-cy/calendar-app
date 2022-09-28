@@ -15,22 +15,24 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
-  errorMessage: string = '';
+  errorMessage?: string;
 
   constructor(private router: Router, private cognitoService: CognitoService) {
     this.loading = false;
     this.user = {} as IUser;
   }
 
+  private resetPasswordFields(): void {
+    this.user.password = '';
+    this.user.confirmPassword = '';
+  }
   passwordValidate(password: string): void {
     if (!REGEX_PASS.test(password) || password.length < 5) {
-      this.user.password = '';
       this.errorMessage = ERROR_PASS_POL;
-    }
-    if (password !== this.user.confirmPassword) {
+      this.resetPasswordFields();
+    } else if (password !== this.user.confirmPassword) {
       this.errorMessage = ERROR_PASS_MATCH;
-      this.user.password = '';
-      this.user.confirmPassword = '';
+      this.resetPasswordFields();
     }
   }
   seeError(e: Error): void {
@@ -41,7 +43,6 @@ export class SignUpComponent {
     this.cognitoService
       .signUp(this.user)
       .then(() => {
-        this.loading = false;
         this.router.navigate(['/confirm-user'], {
           queryParams: { user: JSON.stringify(this.user) },
         });
@@ -57,5 +58,7 @@ export class SignUpComponent {
     if (!this.errorMessage) {
       this.submitUserToCognito();
     }
+    this.errorMessage = undefined;
+    this.loading = false;
   }
 }
