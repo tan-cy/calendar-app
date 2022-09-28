@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   REGEX_PASS,
-  ERR_PASS_POL,
-  ERR_PASS_MATCH,
+  ERROR_PASS_POL,
+  ERROR_PASS_MATCH,
 } from 'src/app/Constants/User';
 import { IUser, CognitoService } from '../../Services/cognito.service';
 
@@ -25,10 +25,10 @@ export class SignUpComponent {
   passwordValidate(password: string): void {
     if (!REGEX_PASS.test(password) || password.length < 5) {
       this.user.password = '';
-      this.errorMessage = ERR_PASS_POL;
+      this.errorMessage = ERROR_PASS_POL;
     }
     if (password !== this.user.confirmPassword) {
-      this.errorMessage = ERR_PASS_MATCH;
+      this.errorMessage = ERROR_PASS_MATCH;
       this.user.password = '';
       this.user.confirmPassword = '';
     }

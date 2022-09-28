@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ERROR_INCORRECT_LOGIN } from 'src/app/Constants/User';
 import { IUser, CognitoService } from '../../Services/cognito.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class SignInComponent implements OnInit {
       })
       .catch((e) => {
         this.loading = false;
-        this.errorMessage = 'Username or Password is incorrect';
+        this.errorMessage = ERROR_INCORRECT_LOGIN;
       });
   }
 }
