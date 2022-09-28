@@ -7,6 +7,7 @@ import * as AWS from 'aws-sdk';
 export interface IUser {
   email: string;
   password: string;
+  confirmPassword: string;
   showPassword: boolean;
   code: string;
   name: string;

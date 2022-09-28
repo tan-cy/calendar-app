@@ -47,6 +47,11 @@ nav {
   align-items: center;
 }
 
+p.errorMessageContainer {
+  color: red;
+  font-weight: 700;
+}
+
 button {
   border-radius: 0.7em;
   padding: 0.5em;

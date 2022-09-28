@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {
+  REGEX_PASS,
+  ERROR_PASS_POL,
+  ERROR_PASS_MATCH,
+} from 'src/app/Constants/User';
 import { IUser, CognitoService } from '../../Services/cognito.service';
 
 @Component({
@@ -11,26 +15,50 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignUpComponent {
   loading: boolean;
   user: IUser;
+  errorMessage?: string;
 
   constructor(private router: Router, private cognitoService: CognitoService) {
     this.loading = false;
     this.user = {} as IUser;
   }
 
-  public signUp(): void {
-    this.loading = true;
+  private resetPasswordFields(): void {
+    this.user.password = '';
+    this.user.confirmPassword = '';
+  }
+  passwordValidate(password: string): void {
+    if (!REGEX_PASS.test(password) || password.length < 5) {
+      this.errorMessage = ERROR_PASS_POL;
+      this.resetPasswordFields();
+    } else if (password !== this.user.confirmPassword) {
+      this.errorMessage = ERROR_PASS_MATCH;
+      this.resetPasswordFields();
+    }
+  }
+  seeError(e: Error): void {
+    this.errorMessage = e.message;
+  }
+
+  submitUserToCognito() {
     this.cognitoService
       .signUp(this.user)
       .then(() => {
-        this.loading = false;
         this.router.navigate(['/confirm-user'], {
           queryParams: { user: JSON.stringify(this.user) },
         });
       })
       .catch((e) => {
-        console.error('Error in sign up..');
-        console.error(e);
-        this.loading = false;
+        this.seeError(e);
       });
+  }
+
+  public signUp(): void {
+    this.passwordValidate(this.user.password);
+    this.loading = true;
+    if (!this.errorMessage) {
+      this.submitUserToCognito();
+    }
+    this.errorMessage = undefined;
+    this.loading = false;
   }
 }

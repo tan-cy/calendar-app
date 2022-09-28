@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ERROR_INCORRECT_LOGIN } from 'src/app/Constants/User';
 import { IUser, CognitoService } from '../../Services/cognito.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { IUser, CognitoService } from '../../Services/cognito.service';
 export class SignInComponent implements OnInit {
   user: IUser;
   loading: boolean;
+  errorMessage: string = '';
 
   constructor(private router: Router, private cognitoService: CognitoService) {
     this.user = {} as IUser;
@@ -26,9 +28,8 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['/calendar-view']);
       })
       .catch((e) => {
-        console.error('Error in sign in..');
-        console.error(e);
         this.loading = false;
+        this.errorMessage = ERROR_INCORRECT_LOGIN;
       });
   }
 }
