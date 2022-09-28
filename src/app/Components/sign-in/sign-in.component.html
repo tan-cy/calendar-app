@@ -7,14 +7,14 @@
         name="user"
         placeholder="Username"
         [(ngModel)]="user.username"
-        [required]="true"
+        required
       />
       <input
         type="password"
         name="password"
         placeholder="Password"
         [(ngModel)]="user.password"
-        [required]="true"
+        required
       />
     </div>
 
@@ -23,6 +23,7 @@
         Login
       </button>
     </div>
+    <p *ngIf="errorMessage" class="errorMessageContainer">{{ errorMessage }}</p>
     <nav>
       Don't have an account?
       <a routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
