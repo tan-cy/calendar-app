@@ -8,10 +8,10 @@
     <header>
       <div id="date-container">
         <h1 *ngIf="this.date">
-          {{ this.date.weekday }}
+          {{ this.date.weekday.day }}
         </h1>
         <h3 class="full-date" *ngIf="this.date">
-          {{ this.date.month }}
+          {{ this.date.month.month }}
           {{ this.date.day }},
           {{ this.date.year }}
         </h3>

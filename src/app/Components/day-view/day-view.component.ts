@@ -21,24 +21,51 @@ export class DayViewComponent implements OnInit {
 
   private getDate(): void {
     if (!this.date) {
-      const today = new Date();
-      this.date = {
-        weekday: WEEKDAYS[today.getDay()].day,
-        month: MONTHS_WITH_DAYS[today.getMonth()].month,
-        monthId: today.getMonth() + 1,
-        day: today.getDate(),
-        year: today.getFullYear(),
-      };
+      this.setToday();
     }
-    this.shortDate =
-      this.date.monthId.toString().padStart(2, '0') +
-      '/' +
-      this.date.day.toString().padStart(2, '0') +
-      '/' +
-      this.date.year.toString().substring(2);
+    this.setShortDate();
   }
 
-  public backArrowClicked(): void {}
+  private setToday(date = new Date()): void {
+    const today = date;
+    this.date = {
+      weekday: WEEKDAYS[today.getDay()],
+      month: MONTHS_WITH_DAYS[today.getMonth()],
+      day: today.getDate(),
+      year: today.getFullYear(),
+    };
+  }
 
-  public nextArrowClicked(): void {}
+  private setShortDate(): void {
+    if (this.date) {
+      this.shortDate =
+        this.date.month.id.toString().padStart(2, '0') +
+        '/' +
+        this.date.day.toString().padStart(2, '0') +
+        '/' +
+        this.date.year.toString().substring(2);
+    }
+  }
+
+  private getDay(): Date {
+    return new Date(this.shortDate!);
+  }
+
+  public backArrowClicked(): void {
+    if (this.date) {
+      let today = this.getDay();
+      today.setDate(today.getDate() - 1);
+      this.setToday(today);
+      this.setShortDate();
+    }
+  }
+
+  public nextArrowClicked(): void {
+    if (this.date) {
+      let today = this.getDay();
+      today.setDate(today.getDate() + 1);
+      this.setToday(today);
+      this.setShortDate();
+    }
+  }
 }

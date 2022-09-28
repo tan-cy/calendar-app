@@ -1,18 +1,19 @@
 export const MONTHS_WITH_DAYS: MonthData[] = [
-  { id: 1, month: 'January', day: 31 },
-  { id: 2, month: 'February', day: 28 },
-  { id: 3, month: 'March', day: 31 },
-  { id: 4, month: 'April', day: 30 },
-  { id: 5, month: 'May', day: 31 },
-  { id: 6, month: 'June', day: 30 },
-  { id: 7, month: 'July', day: 31 },
-  { id: 8, month: 'August', day: 31 },
-  { id: 9, month: 'September', day: 30 },
-  { id: 10, month: 'October', day: 31 },
-  { id: 11, month: 'November', day: 30 },
-  { id: 12, month: 'December', day: 31 },
+  { id: 1, month: 'January', daysInMonth: 31 },
+  { id: 2, month: 'February', daysInMonth: 28 },
+  { id: 3, month: 'March', daysInMonth: 31 },
+  { id: 4, month: 'April', daysInMonth: 30 },
+  { id: 5, month: 'May', daysInMonth: 31 },
+  { id: 6, month: 'June', daysInMonth: 30 },
+  { id: 7, month: 'July', daysInMonth: 31 },
+  { id: 8, month: 'August', daysInMonth: 31 },
+  { id: 9, month: 'September', daysInMonth: 30 },
+  { id: 10, month: 'October', daysInMonth: 31 },
+  { id: 11, month: 'November', daysInMonth: 30 },
+  { id: 12, month: 'December', daysInMonth: 31 },
 ];
-export const WEEKDAYS: { id: number; day: string }[] = [
+
+export const WEEKDAYS: Weekday[] = [
   { id: 0, day: 'Sunday' },
   { id: 1, day: 'Monday' },
   { id: 2, day: 'Tuesday' },
@@ -23,9 +24,8 @@ export const WEEKDAYS: { id: number; day: string }[] = [
 ];
 
 export type CalendarDate = {
-  weekday: string;
-  month: string;
-  monthId: number;
+  weekday: Weekday;
+  month: MonthData;
   day: number;
   year: number;
 };
@@ -33,9 +33,11 @@ export type CalendarDate = {
 export type MonthData = {
   id: number;
   month: string;
-  day: number;
+  daysInMonth: number;
   daysArray?: number[];
 };
+
+export type Weekday = { id: number; day: string };
 
 export const MAX_MONTH_IDX = 11;
 export const MIN_MONTH_IDX = 0;

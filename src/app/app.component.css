@@ -1,1 +1,7 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+body {
+  min-width: 460px;
+  min-height: 520px;
+  overflow: scroll;
+}

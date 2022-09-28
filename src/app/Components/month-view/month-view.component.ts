@@ -25,7 +25,7 @@ export class MonthViewComponent implements OnInit {
   }
 
   generateDaysInMonthArray(): void {
-    const days = this.monthData.day;
+    const days = this.monthData.daysInMonth;
     const firstDayOfMonth = this.getWeekdayIdForDay(this.monthData.id);
     let daysInMonth = new Array(firstDayOfMonth).fill(null);
     for (let i = 1; i <= days; i++) {
@@ -100,9 +100,8 @@ export class MonthViewComponent implements OnInit {
 
   goToDay(day: number): void {
     const date = {
-      weekday: WEEKDAYS[this.getWeekdayIdForDay(this.monthData.id, day)].day,
-      month: this.monthData.month,
-      monthId: this.monthData.id,
+      weekday: WEEKDAYS[this.getWeekdayIdForDay(this.monthData.id, day)],
+      month: this.monthData,
       day: day,
       year: this.year,
     };
